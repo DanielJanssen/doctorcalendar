@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.entity;
+package de.th_koeln.doctorcalendar.dataaccess.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

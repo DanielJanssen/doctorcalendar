@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.entity;
+package de.th_koeln.doctorcalendar.dataaccess.entity;
 
 import java.io.Serializable;
 
@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Address implements Serializable {
+public class PhoneNumber implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	// TODO rt57, 29.04.2017: Generate UUID
+
 	@Id
 	@Basic
 	@NotNull
@@ -19,42 +19,30 @@ public class Address implements Serializable {
 
 	@Basic
 	@NotNull
-	private String street;
+	private String dialingCode;
 
 	@Basic
 	@NotNull
-	private Integer zipcode;
-
-	@Basic
-	@NotNull
-	private String city;
+	private String number;
 
 	public String getId() {
 		return id;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getDialingCode() {
+		return dialingCode;
 	}
 
-	public void setStreet(String aStreet) {
-		street = aStreet;
+	public void setDialingCode(String aDialingCode) {
+		dialingCode = aDialingCode;
 	}
 
-	public Integer getZipcode() {
-		return zipcode;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setZipcode(Integer aZipcode) {
-		zipcode = aZipcode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String aCity) {
-		city = aCity;
+	public void setNumber(String aNumber) {
+		number = aNumber;
 	}
 
 	@Override
@@ -76,7 +64,7 @@ public class Address implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Address other = (Address) obj;
+		PhoneNumber other = (PhoneNumber) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;

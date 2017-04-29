@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.entity;
+package de.th_koeln.doctorcalendar.dataaccess.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import de.th_koeln.doctorcalendar.entity.enums.Speciality;
+import de.th_koeln.doctorcalendar.dataaccess.entity.enums.Speciality;
 
 @Entity
 public class MedicalOffice implements Serializable {
