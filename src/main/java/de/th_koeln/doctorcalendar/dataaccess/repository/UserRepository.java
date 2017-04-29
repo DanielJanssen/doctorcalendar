@@ -6,4 +6,5 @@ import de.th_koeln.doctorcalendar.dataaccess.entity.User;
 
 public interface UserRepository extends CrudRepository<User, String> {
 
+	public User findByLoginName(String aLoginName);
 }
