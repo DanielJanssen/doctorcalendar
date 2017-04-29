@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
+// TODO rt57, 29.04.2017:  UniqueConstraint auf LoginName
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
