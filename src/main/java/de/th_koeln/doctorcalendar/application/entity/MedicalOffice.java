@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,29 +25,29 @@ public class MedicalOffice implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Basic
+	@Column(length = 36, nullable = false, unique = true)
 	@NotNull
 	private String id = UuidGenerator.buildUuidString();
 
 	@Enumerated(EnumType.STRING)
-	@Column
+	@Column(nullable = false, unique = false)
 	@NotNull
 	private Speciality speciality;
 
 	@Temporal(TemporalType.TIME)
-	@Column
+	@Column(nullable = false, unique = false)
 	@NotNull
 	private Date openFrom;
 
 	@Temporal(TemporalType.TIME)
-	@Column
+	@Column(nullable = false, unique = false)
 	@NotNull
 	private Date openTo;
 
-	@Basic
+	@Column(length = 63, nullable = true, unique = false)
 	private String website;
 
-	@Basic
+	@Column(length = 63, nullable = true, unique = true)
 	private String email;
 
 	@OneToOne

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -21,27 +21,27 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Basic
+	@Column(length = 36, nullable = false, unique = true)
 	@NotNull
 	private String id = UuidGenerator.buildUuidString();
 
-	@Basic
+	@Column(length = 12, nullable = false, unique = true)
 	@NotNull
 	private String loginName;
 
-	@Basic
+	@Column(length = 63, nullable = false, unique = false)
 	@NotNull
 	private String firstName;
 
-	@Basic
+	@Column(length = 63, nullable = false, unique = false)
 	@NotNull
 	private String surName;
 
-	@Basic
+	@Column(length = 63, nullable = false, unique = true)
 	@NotNull
 	private String email;
 
-	@Basic
+	@Column(length = 63, nullable = false, unique = false)
 	@NotNull
 	private String password;
 

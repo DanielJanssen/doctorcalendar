@@ -4,18 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
-import de.th_koeln.doctorcalendar.gui.login.Login;
+import de.th_koeln.doctorcalendar.gui.login.LoginView;
+import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointment;
 
 @SpringUI
 @Theme("valo")
 public class CalendarUi extends UI {
 
 	@Autowired
-	Login login;
+	LoginView loginView;
+
+	@Autowired
+	NextMedicalAppointment nextMedicalAppointmentView;
+
+	@Autowired
+	private SpringViewProvider viewProvider;
 
 	private Navigator navigator;
 
@@ -23,7 +32,32 @@ public class CalendarUi extends UI {
 	protected void init(VaadinRequest aRequest) {
 		getPage().setTitle("Ärzteterminkalender - Finde deinen nächsten Termin");
 		navigator = new Navigator(this, this);
-		navigator.addView("", login);
+		navigator.addView(LoginView.VIEW_NAME, loginView);
+		navigator.addView(NextMedicalAppointment.VIEW_NAME, nextMedicalAppointmentView);
+		navigator.addProvider(viewProvider);
+		navigator.addViewChangeListener(createViewChangeListener());
 	}
 
+	private ViewChangeListener createViewChangeListener() {
+		return new ViewChangeListener() {
+			@Override
+			public boolean beforeViewChange(ViewChangeEvent anEvent) {
+				// Check if a user has logged in
+				boolean isLoggedIn = getSession().getAttribute("user") != null;
+				boolean isLoginView = anEvent.getNewView() instanceof LoginView;
+
+				if (!isLoggedIn && !isLoginView) {
+					getNavigator().navigateTo(LoginView.VIEW_NAME);
+					return false;
+				} else if (isLoggedIn && isLoginView) {
+					return false;
+				}
+				return true;
+			}
+
+			@Override
+			public void afterViewChange(ViewChangeEvent aEvent) {
+			}
+		};
+	}
 }

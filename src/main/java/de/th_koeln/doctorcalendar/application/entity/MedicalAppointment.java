@@ -3,7 +3,6 @@ package de.th_koeln.doctorcalendar.application.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,30 +19,30 @@ public class MedicalAppointment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Basic
+	@Column(length = 36, nullable = false, unique = true)
 	@NotNull
 	private String id = UuidGenerator.buildUuidString();
 
 	@Temporal(TemporalType.DATE)
-	@Column
+	@Column(nullable = false, unique = false)
 	@NotNull
 	private Date date;
 
 	@Temporal(TemporalType.TIME)
-	@Column
+	@Column(nullable = false, unique = false)
 	@NotNull
 	private Date timeFrom;
 
 	@Temporal(TemporalType.TIME)
-	@Column
+	@Column(nullable = false, unique = false)
 	@NotNull
 	private Date timeTo;
 
-	@Basic
+	@Column(length = 63, nullable = false, unique = false)
 	@NotNull
 	private String description;
 
-	@Basic
+	@Column(length = 255, nullable = true, unique = false)
 	private String comment;
 
 	@ManyToOne

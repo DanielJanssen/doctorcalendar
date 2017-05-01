@@ -10,16 +10,19 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointment;
 import de.th_koeln.doctorcalendar.service.login.LoginService;
 
 @SpringComponent
 @VaadinSessionScope
-public class Login extends VerticalLayout implements View {
+public class LoginView extends VerticalLayout implements View {
 
+	public static final String VIEW_NAME = "Login";
 	private static final long serialVersionUID = 1L;
 	private Button buttonLogin = new Button("Login");
 	private TextField userName = new TextField("Benutzername");
@@ -58,9 +61,11 @@ public class Login extends VerticalLayout implements View {
 			@Override
 			public void buttonClick(Button.ClickEvent event) {
 				if (loginService.isCorrectLoginData(userName.getValue(), password.getValue())) {
-					System.out.println("Login");
+					getSession().setAttribute("user", userName.getValue());
+					getUI().getNavigator().navigateTo(NextMedicalAppointment.VIEW_NAME);
+				} else {
+					Notification.show("Du konntest dich leider nicht einloggen. Bitte überprüfe das Passwort und den Benutzernamen");
 				}
-				System.out.println("False");
 			}
 		};
 	}

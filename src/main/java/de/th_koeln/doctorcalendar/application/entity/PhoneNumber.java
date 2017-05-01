@@ -2,7 +2,7 @@ package de.th_koeln.doctorcalendar.application.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -15,15 +15,15 @@ public class PhoneNumber implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Basic
+	@Column(length = 36, nullable = false, unique = true)
 	@NotNull
 	private String id = UuidGenerator.buildUuidString();
 
-	@Basic
+	@Column(length = 5, nullable = false, unique = false)
 	@NotNull
 	private String dialingCode;
 
-	@Basic
+	@Column(length = 12, nullable = false, unique = false)
 	@NotNull
 	private String number;
 
