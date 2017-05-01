@@ -29,6 +29,10 @@ public class MedicalOffice implements Serializable {
 	@NotNull
 	private String id = UuidGenerator.buildUuidString();
 
+	@Column(length = 63, nullable = false, unique = false)
+	@NotNull
+	private String name;
+
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, unique = false)
 	@NotNull
@@ -67,6 +71,14 @@ public class MedicalOffice implements Serializable {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String aName) {
+		name = aName;
 	}
 
 	public Speciality getSpeciality() {

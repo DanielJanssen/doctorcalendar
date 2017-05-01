@@ -49,7 +49,7 @@ public class MedicalAppointment implements Serializable {
 	private User user;
 
 	@ManyToOne
-	private MedicalOffice medicalOffice;
+	private MedicalOffice medicalOffice = new MedicalOffice();
 
 	public String getId() {
 		return id;
@@ -139,5 +139,9 @@ public class MedicalAppointment implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public String getFormattedTime() {
+		return timeFrom + " - " + timeTo;
 	}
 }
