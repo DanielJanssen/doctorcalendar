@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.dataaccess.entity;
+package de.th_koeln.doctorcalendar.application.entity;
 
 import java.io.Serializable;
 
@@ -7,42 +7,44 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import de.th_koeln.doctorcalendar.application.entity.uuid.UuidGenerator;
+
 @Entity
-public class Caregiving implements Serializable {
+public class PhoneNumber implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Basic
 	@NotNull
-	private String id;
+	private String id = UuidGenerator.buildUuidString();
 
 	@Basic
 	@NotNull
-	private String name;
+	private String dialingCode;
 
 	@Basic
 	@NotNull
-	private Integer durcationInMinutes;
+	private String number;
 
 	public String getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDialingCode() {
+		return dialingCode;
 	}
 
-	public void setName(String aName) {
-		name = aName;
+	public void setDialingCode(String aDialingCode) {
+		dialingCode = aDialingCode;
 	}
 
-	public Integer getDurcationInMinutes() {
-		return durcationInMinutes;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setDurcationInMinutes(Integer aDurcationInMinutes) {
-		durcationInMinutes = aDurcationInMinutes;
+	public void setNumber(String aNumber) {
+		number = aNumber;
 	}
 
 	@Override
@@ -64,7 +66,7 @@ public class Caregiving implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Caregiving other = (Caregiving) obj;
+		PhoneNumber other = (PhoneNumber) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;

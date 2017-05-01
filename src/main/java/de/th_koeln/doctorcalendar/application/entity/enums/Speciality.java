@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.dataaccess.entity.enums;
+package de.th_koeln.doctorcalendar.application.entity.enums;
 
 public enum Speciality {
 

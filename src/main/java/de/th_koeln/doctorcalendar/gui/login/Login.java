@@ -1,5 +1,7 @@
 package de.th_koeln.doctorcalendar.gui.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -12,6 +14,8 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.th_koeln.doctorcalendar.service.login.LoginService;
+
 @SpringComponent
 @VaadinSessionScope
 public class Login extends VerticalLayout implements View {
@@ -21,6 +25,9 @@ public class Login extends VerticalLayout implements View {
 	private TextField userName = new TextField("Benutzername");
 	private PasswordField password = new PasswordField("Passwort");
 	private Label loginLabel = new Label("Bitte logge dich ein, um den Kalender benutzen zu können");
+
+	@Autowired
+	LoginService loginService;
 
 	@Override
 	public void enter(ViewChangeEvent aEvent) {
@@ -50,8 +57,10 @@ public class Login extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(Button.ClickEvent event) {
-				// TODO rt57, 29.04.2017: authentication
-				//navigate to main view
+				if (loginService.isCorrectLoginData(userName.getValue(), password.getValue())) {
+					System.out.println("Login");
+				}
+				System.out.println("False");
 			}
 		};
 	}

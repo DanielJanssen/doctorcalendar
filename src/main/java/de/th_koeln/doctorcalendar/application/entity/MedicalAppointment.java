@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.dataaccess.entity;
+package de.th_koeln.doctorcalendar.application.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import de.th_koeln.doctorcalendar.application.entity.uuid.UuidGenerator;
+
 @Entity
 public class MedicalAppointment implements Serializable {
 
@@ -20,7 +22,7 @@ public class MedicalAppointment implements Serializable {
 	@Id
 	@Basic
 	@NotNull
-	private String id;
+	private String id = UuidGenerator.buildUuidString();
 
 	@Temporal(TemporalType.DATE)
 	@Column

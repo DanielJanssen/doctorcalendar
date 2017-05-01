@@ -1,8 +1,8 @@
-package de.th_koeln.doctorcalendar.dataaccess.repository;
+package de.th_koeln.doctorcalendar.persistence.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import de.th_koeln.doctorcalendar.dataaccess.entity.User;
+import de.th_koeln.doctorcalendar.application.entity.User;
 
 public interface UserRepository extends CrudRepository<User, String> {
 

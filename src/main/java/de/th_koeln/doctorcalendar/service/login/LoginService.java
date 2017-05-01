@@ -1,10 +1,13 @@
-package de.th_koeln.doctorcalendar.dataaccess.service.login;
+package de.th_koeln.doctorcalendar.service.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.th_koeln.doctorcalendar.dataaccess.entity.User;
-import de.th_koeln.doctorcalendar.dataaccess.repository.UserRepository;
+import com.vaadin.spring.annotation.SpringComponent;
 
+import de.th_koeln.doctorcalendar.application.entity.User;
+import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
+
+@SpringComponent
 public class LoginService {
 
 	@Autowired

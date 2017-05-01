@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.dataaccess.entity;
+package de.th_koeln.doctorcalendar.application.entity;
 
 import java.io.Serializable;
 
@@ -7,15 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
+import de.th_koeln.doctorcalendar.application.entity.uuid.UuidGenerator;
+
 @Entity
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	// TODO rt57, 29.04.2017: Generate UUID
+
 	@Id
 	@Basic
 	@NotNull
-	private String id;
+	private String id = UuidGenerator.buildUuidString();
 
 	@Basic
 	@NotNull

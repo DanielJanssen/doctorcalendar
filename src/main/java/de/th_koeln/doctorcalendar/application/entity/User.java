@@ -1,54 +1,49 @@
-package de.th_koeln.doctorcalendar.dataaccess.entity;
+package de.th_koeln.doctorcalendar.application.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import de.th_koeln.doctorcalendar.dataaccess.entity.enums.Speciality;
+import de.th_koeln.doctorcalendar.application.entity.uuid.UuidGenerator;
 
 @Entity
-public class MedicalOffice implements Serializable {
+// TODO rt57, 29.04.2017:  UniqueConstraint auf LoginName
+public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Basic
 	@NotNull
-	private String id;
-
-	@Enumerated(EnumType.STRING)
-	@Column
-	@NotNull
-	private Speciality speciality;
-
-	@Temporal(TemporalType.TIME)
-	@Column
-	@NotNull
-	private Date openFrom;
-
-	@Temporal(TemporalType.TIME)
-	@Column
-	@NotNull
-	private Date openTo;
+	private String id = UuidGenerator.buildUuidString();
 
 	@Basic
-	private String website;
+	@NotNull
+	private String loginName;
 
 	@Basic
+	@NotNull
+	private String firstName;
+
+	@Basic
+	@NotNull
+	private String surName;
+
+	@Basic
+	@NotNull
 	private String email;
+
+	@Basic
+	@NotNull
+	private String password;
 
 	@OneToOne
 	private PhoneNumber phoneNumber;
@@ -56,49 +51,38 @@ public class MedicalOffice implements Serializable {
 	@OneToOne
 	private Address address;
 
-	@OneToMany(mappedBy = "workingMedicalOffice")
-	private List<User> employees = new ArrayList<>();
+	@ManyToOne
+	private MedicalOffice workingMedicalOffice;
 
-	@OneToMany
-	private List<Caregiving> caregivings = new ArrayList<>();
-
-	@OneToMany(mappedBy = "medicalOffice")
+	@OneToMany(mappedBy = "user")
 	private List<MedicalAppointment> medicalAppointments = new ArrayList<>();
 
 	public String getId() {
 		return id;
 	}
 
-	public Speciality getSpeciality() {
-		return speciality;
+	public String getLoginName() {
+		return loginName;
 	}
 
-	public void setSpeciality(Speciality aSpeciality) {
-		speciality = aSpeciality;
+	public void setLoginName(String aLoginName) {
+		loginName = aLoginName;
 	}
 
-	public Date getOpenFrom() {
-		return openFrom;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setOpenFrom(Date aOpenFrom) {
-		openFrom = aOpenFrom;
+	public void setFirstName(String aFirstName) {
+		firstName = aFirstName;
 	}
 
-	public Date getOpenTo() {
-		return openTo;
+	public String getSurName() {
+		return surName;
 	}
 
-	public void setOpenTo(Date aOpenTo) {
-		openTo = aOpenTo;
-	}
-
-	public String getWebsite() {
-		return website;
-	}
-
-	public void setWebsite(String aWebsite) {
-		website = aWebsite;
+	public void setSurName(String aSurName) {
+		surName = aSurName;
 	}
 
 	public String getEmail() {
@@ -107,6 +91,18 @@ public class MedicalOffice implements Serializable {
 
 	public void setEmail(String aEmail) {
 		email = aEmail;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String aPassword) {
+		password = aPassword;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public PhoneNumber getPhoneNumber() {
@@ -125,20 +121,12 @@ public class MedicalOffice implements Serializable {
 		address = aAddress;
 	}
 
-	public List<User> getEmployees() {
-		return employees;
+	public MedicalOffice getWorkingMedicalOffice() {
+		return workingMedicalOffice;
 	}
 
-	public void setEmployees(List<User> aEmployees) {
-		employees = aEmployees;
-	}
-
-	public List<Caregiving> getCaregivings() {
-		return caregivings;
-	}
-
-	public void setCaregivings(List<Caregiving> aCaregivings) {
-		caregivings = aCaregivings;
+	public void setWorkingMedicalOffice(MedicalOffice aWorkingMedicalOffice) {
+		workingMedicalOffice = aWorkingMedicalOffice;
 	}
 
 	public List<MedicalAppointment> getMedicalAppointments() {
@@ -168,7 +156,7 @@ public class MedicalOffice implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		MedicalOffice other = (MedicalOffice) obj;
+		User other = (User) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;
