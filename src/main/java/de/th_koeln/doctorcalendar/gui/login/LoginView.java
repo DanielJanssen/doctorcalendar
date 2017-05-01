@@ -15,7 +15,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointment;
+import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
 import de.th_koeln.doctorcalendar.service.login.LoginService;
 
 @SpringComponent
@@ -62,7 +62,7 @@ public class LoginView extends VerticalLayout implements View {
 			public void buttonClick(Button.ClickEvent event) {
 				if (loginService.isCorrectLoginData(userName.getValue(), password.getValue())) {
 					getSession().setAttribute("user", userName.getValue());
-					getUI().getNavigator().navigateTo(NextMedicalAppointment.VIEW_NAME);
+					getUI().getNavigator().navigateTo(NextMedicalAppointmentView.VIEW_NAME);
 				} else {
 					Notification.show("Du konntest dich leider nicht einloggen. Bitte überprüfe das Passwort und den Benutzernamen");
 				}

@@ -8,7 +8,7 @@ import com.vaadin.ui.VerticalLayout;
 
 @SpringComponent
 @VaadinSessionScope
-public class NextMedicalAppointment extends VerticalLayout implements View {
+public class NextMedicalAppointmentView extends VerticalLayout implements View {
 
 	public static final String VIEW_NAME = "Next Medical Appointment";
 

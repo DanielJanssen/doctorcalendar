@@ -11,7 +11,7 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.gui.login.LoginView;
-import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointment;
+import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
 
 @SpringUI
 @Theme("valo")
@@ -21,7 +21,7 @@ public class CalendarUi extends UI {
 	LoginView loginView;
 
 	@Autowired
-	NextMedicalAppointment nextMedicalAppointmentView;
+	NextMedicalAppointmentView nextMedicalAppointmentView;
 
 	@Autowired
 	private SpringViewProvider viewProvider;
@@ -33,7 +33,7 @@ public class CalendarUi extends UI {
 		getPage().setTitle("Ärzteterminkalender - Finde deinen nächsten Termin");
 		navigator = new Navigator(this, this);
 		navigator.addView(LoginView.VIEW_NAME, loginView);
-		navigator.addView(NextMedicalAppointment.VIEW_NAME, nextMedicalAppointmentView);
+		navigator.addView(NextMedicalAppointmentView.VIEW_NAME, nextMedicalAppointmentView);
 		navigator.addProvider(viewProvider);
 		navigator.addViewChangeListener(createViewChangeListener());
 	}
