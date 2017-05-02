@@ -13,6 +13,8 @@ import com.vaadin.ui.UI;
 import de.th_koeln.doctorcalendar.gui.login.LoginView;
 import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentController;
 import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.PastMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.user.PastMedicalAppointmentView;
 
 @SpringUI
 @Theme("valo")
@@ -25,6 +27,9 @@ public class CalendarUi extends UI {
 	NextMedicalAppointmentController nextMedicalAppointmentController;
 
 	@Autowired
+	PastMedicalAppointmentController pastMedicalApointmentController;
+
+	@Autowired
 	private SpringViewProvider viewProvider;
 
 	private Navigator navigator;
@@ -35,6 +40,7 @@ public class CalendarUi extends UI {
 		navigator = new Navigator(this, this);
 		navigator.addView(LoginView.VIEW_NAME, loginView);
 		navigator.addView(NextMedicalAppointmentView.VIEW_NAME, nextMedicalAppointmentController.getView());
+		navigator.addView(PastMedicalAppointmentView.VIEW_NAME, pastMedicalApointmentController.getView());
 		navigator.addProvider(viewProvider);
 		navigator.addViewChangeListener(createViewChangeListener());
 	}

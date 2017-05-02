@@ -25,13 +25,14 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 
 	@Override
 	public void enter(ViewChangeEvent aEvent) {
+		removeAllComponents();
 		controller.findNextMedicalAppointments();
-		addComponent(new NavigationComponent());
 		addAllComponents();
 		setSpacing(true);
 	}
 
 	private void addAllComponents() {
+		addComponent(new NavigationComponent());
 		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
 		Grid grid = new Grid(container);

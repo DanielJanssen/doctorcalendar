@@ -10,6 +10,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.PastMedicalAppointmentView;
 
 @SpringComponent
 @VaadinSessionScope
@@ -23,6 +24,7 @@ public class NavigationComponent extends HorizontalLayout {
 		Command navigation = getMenuBarCommand();
 		MenuItem medicalAppointment = menuBar.addItem("Terminübersicht", null);
 		medicalAppointment.addItem(NextMedicalAppointmentView.VIEW_NAME, navigation);
+		medicalAppointment.addItem(PastMedicalAppointmentView.VIEW_NAME, navigation);
 	}
 
 	private Command getMenuBarCommand() {
