@@ -18,6 +18,8 @@ public class PastMedicalAppointmentView extends VerticalLayout implements View {
 
 	PastMedicalAppointmentController controller;
 
+	private PastMedicalAppointmentModel model;
+
 	@Override
 	public void enter(ViewChangeEvent aEvent) {
 		//		controller.findPastMedicalAppointments();
@@ -28,6 +30,14 @@ public class PastMedicalAppointmentView extends VerticalLayout implements View {
 	private void addAllComponents() {
 		removeAllComponents();
 		addComponent(new NavigationComponent());
+	}
+
+	public PastMedicalAppointmentModel getModel() {
+		return model;
+	}
+
+	public void setModel(PastMedicalAppointmentModel aModel) {
+		model = aModel;
 	}
 
 	public void setController(PastMedicalAppointmentController aController) {
