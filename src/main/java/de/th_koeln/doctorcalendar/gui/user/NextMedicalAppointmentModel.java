@@ -24,6 +24,7 @@ public class NextMedicalAppointmentModel {
 
 	public void setSelectedMedicalAppointment(MedicalAppointment aSelectedMedicalAppointment) {
 		selectedMedicalAppointment = aSelectedMedicalAppointment;
+		System.out.println(selectedMedicalAppointment);
 	}
 
 }

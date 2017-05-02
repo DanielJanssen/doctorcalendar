@@ -6,6 +6,8 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.vaadin.event.SelectionEvent;
+import com.vaadin.event.SelectionEvent.SelectionListener;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 
@@ -33,6 +35,25 @@ public class NextMedicalAppointmentController {
 	@PostConstruct
 	public void init() {
 		view.setController(this);
+	}
+
+	public SelectionListener getSelectionListener() {
+		return new SelectionListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void select(SelectionEvent aEvent) {
+				if (aEvent.getSelected() != null && !aEvent.getSelected().isEmpty()) {
+					getModel().setSelectedMedicalAppointment((MedicalAppointment) aEvent.getSelected().iterator().next());
+				} else {
+					getModel().setSelectedMedicalAppointment(null);
+				}
+			}
+		};
+	}
+
+	public NextMedicalAppointmentModel getModel() {
+		return view.getModel();
 	}
 
 }

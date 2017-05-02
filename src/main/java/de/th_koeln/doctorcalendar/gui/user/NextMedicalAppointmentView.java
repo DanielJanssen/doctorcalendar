@@ -6,6 +6,7 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.VerticalLayout;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
@@ -43,6 +44,8 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		grid.addColumn("medicalOffice.name").setHeaderCaption("Arztpraxis");
 		grid.addColumn("medicalOffice.speciality").setHeaderCaption("Fachrichtung");
 		grid.addColumn("description").setHeaderCaption("Grund");
+		grid.setSelectionMode(SelectionMode.SINGLE);
+		grid.addSelectionListener(controller.getSelectionListener());
 
 		addComponent(grid);
 	}
