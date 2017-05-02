@@ -9,6 +9,7 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
 @SpringComponent
 @VaadinSessionScope
@@ -16,7 +17,7 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String VIEW_NAME = "Next Medical Appointment";
+	public static final String VIEW_NAME = "Kommende Termine";
 
 	private NextMedicalAppointmentModel model;
 
@@ -25,6 +26,7 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 	@Override
 	public void enter(ViewChangeEvent aEvent) {
 		controller.findNextMedicalAppointments();
+		addComponent(new NavigationComponent());
 		addAllComponents();
 		setSpacing(true);
 	}

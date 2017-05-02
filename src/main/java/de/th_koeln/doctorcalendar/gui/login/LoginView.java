@@ -22,7 +22,7 @@ import de.th_koeln.doctorcalendar.service.login.LoginService;
 @VaadinSessionScope
 public class LoginView extends VerticalLayout implements View {
 
-	public static final String VIEW_NAME = "Login";
+	public static final String VIEW_NAME = "";//do not change "", because of vaadin problems
 	private static final long serialVersionUID = 1L;
 	private Button buttonLogin = new Button("Login");
 	private TextField userName = new TextField("Benutzername");
