@@ -75,23 +75,17 @@ public class TestdataGenerator {
 		User user = new User("PeterMueller", "Peter", "Müller", "muellerp@web.de", "PeterMueller", new PhoneNumber("01520", "1726905"),
 				new Address("Lindenstraße", 40233, "Düsseldorf"));
 		user.getMedicalAppointments()
-				.add(new MedicalAppointment(getPastDate(), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user, thirdMedicalOffice));
+				.add(new MedicalAppointment(getPastDate(-5), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user, thirdMedicalOffice));
 		user.getMedicalAppointments()
-				.add(new MedicalAppointment(getFutureDate(), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user, firstMedicalOffice));
-		user.getMedicalAppointments().add(new MedicalAppointment(new Date(), getTimeAt(9, 0), getTimeAt(10, 0), "Zahn ziehen", null, user, firstMedicalOffice));
-
+				.add(new MedicalAppointment(getPastDate(5), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user, firstMedicalOffice));
+		user.getMedicalAppointments().add(new MedicalAppointment(new Date(), getTimeAt(9, 0), getTimeAt(10, 0), "Zahn ziehen", null, user, thirdMedicalOffice));
+		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice));
 		return user;
 	}
 
-	private Date getPastDate() {
+	private Date getPastDate(Integer aDateChangeInDays) {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -5);
-		return calendar.getTime();
-	}
-
-	private Date getFutureDate() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, 5);
+		calendar.add(Calendar.DATE, aDateChangeInDays);
 		return calendar.getTime();
 	}
 
