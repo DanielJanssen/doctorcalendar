@@ -27,6 +27,16 @@ public class PhoneNumber implements Serializable {
 	@NotNull
 	private String number;
 
+	public PhoneNumber() {
+		super();
+	}
+
+	public PhoneNumber(String aDialingCode, String aNumber) {
+		super();
+		dialingCode = aDialingCode;
+		number = aNumber;
+	}
+
 	public String getId() {
 		return id;
 	}

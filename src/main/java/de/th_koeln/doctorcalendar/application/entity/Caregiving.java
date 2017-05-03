@@ -28,6 +28,16 @@ public class Caregiving implements Serializable {
 	@NotNull
 	private Integer durcationInMinutes;
 
+	public Caregiving() {
+		super();
+	}
+
+	public Caregiving(String aName, Integer aDurcationInMinutes) {
+		super();
+		name = aName;
+		durcationInMinutes = aDurcationInMinutes;
+	}
+
 	public String getId() {
 		return id;
 	}

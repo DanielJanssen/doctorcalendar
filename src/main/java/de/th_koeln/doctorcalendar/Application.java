@@ -24,3 +24,7 @@ public class Application {
 		};
 	}
 }
+
+// TODO rt57, 03.05.2017: MedicalAppointment fehlt Caregiving
+// TODO rt57, 03.05.2017: Address fehlt Hausnummer
+// TODO rt57, 03.05.2017: Status fehlt für Medical Appointment (reserviert, bestätigt)

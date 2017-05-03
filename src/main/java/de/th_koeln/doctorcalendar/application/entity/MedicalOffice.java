@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -54,20 +55,37 @@ public class MedicalOffice implements Serializable {
 	@Column(length = 63, nullable = true, unique = true)
 	private String email;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private PhoneNumber phoneNumber;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
-	@OneToMany(mappedBy = "workingMedicalOffice")
+	@OneToMany(mappedBy = "workingMedicalOffice", cascade = CascadeType.ALL)
 	private List<User> employees = new ArrayList<>();
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Caregiving> caregivings = new ArrayList<>();
 
 	@OneToMany(mappedBy = "medicalOffice")
 	private List<MedicalAppointment> medicalAppointments = new ArrayList<>();
+
+	public MedicalOffice() {
+		super();
+	}
+
+	public MedicalOffice(String aName, Speciality aSpeciality, Date aOpenFrom, Date aOpenTo, String aWebsite, String aEmail, PhoneNumber aPhoneNumber,
+			Address aAddress) {
+		super();
+		name = aName;
+		speciality = aSpeciality;
+		openFrom = aOpenFrom;
+		openTo = aOpenTo;
+		website = aWebsite;
+		email = aEmail;
+		phoneNumber = aPhoneNumber;
+		address = aAddress;
+	}
 
 	public String getId() {
 		return id;

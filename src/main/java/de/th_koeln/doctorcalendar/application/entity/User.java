@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import de.th_koeln.doctorcalendar.application.entity.uuid.UuidGenerator;
 
 @Entity
-// TODO rt57, 29.04.2017:  UniqueConstraint auf LoginName
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -45,17 +45,42 @@ public class User implements Serializable {
 	@NotNull
 	private String password;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private PhoneNumber phoneNumber;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
 	@ManyToOne
 	private MedicalOffice workingMedicalOffice;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<MedicalAppointment> medicalAppointments = new ArrayList<>();
+
+	public User() {
+		super();
+	}
+
+	public User(String aLoginName, String aFirstName, String aSurName, String aEmail, String aPassword, MedicalOffice aWorkingMedicalOffice) {
+		super();
+		loginName = aLoginName;
+		firstName = aFirstName;
+		surName = aSurName;
+		email = aEmail;
+		password = aPassword;
+		workingMedicalOffice = aWorkingMedicalOffice;
+	}
+
+	public User(String aLoginName, String aFirstName, String aSurName, String aEmail, String aPassword, PhoneNumber aPhoneNumber, Address aAddress) {
+		super();
+		loginName = aLoginName;
+		firstName = aFirstName;
+		surName = aSurName;
+		email = aEmail;
+		password = aPassword;
+		phoneNumber = aPhoneNumber;
+		address = aAddress;
+	}
 
 	public String getId() {
 		return id;

@@ -51,6 +51,21 @@ public class MedicalAppointment implements Serializable {
 	@ManyToOne
 	private MedicalOffice medicalOffice = new MedicalOffice();
 
+	public MedicalAppointment() {
+		super();
+	}
+
+	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice) {
+		super();
+		date = aDate;
+		timeFrom = aTimeFrom;
+		timeTo = aTimeTo;
+		description = aDescription;
+		comment = aComment;
+		user = aUser;
+		medicalOffice = aMedicalOffice;
+	}
+
 	public String getId() {
 		return id;
 	}

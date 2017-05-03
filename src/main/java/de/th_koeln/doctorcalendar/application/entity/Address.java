@@ -31,6 +31,17 @@ public class Address implements Serializable {
 	@NotNull
 	private String city;
 
+	public Address() {
+		super();
+	}
+
+	public Address(String aStreet, Integer aZipcode, String aCity) {
+		super();
+		street = aStreet;
+		zipcode = aZipcode;
+		city = aCity;
+	}
+
 	public String getId() {
 		return id;
 	}
