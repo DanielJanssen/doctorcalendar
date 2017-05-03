@@ -25,6 +25,10 @@ public class Address implements Serializable {
 
 	@Column(length = 5, nullable = false, unique = false)
 	@NotNull
+	private String number;
+
+	@Column(length = 5, nullable = false, unique = false)
+	@NotNull
 	private Integer zipcode;
 
 	@Column(length = 63, nullable = false, unique = false)
@@ -35,9 +39,10 @@ public class Address implements Serializable {
 		super();
 	}
 
-	public Address(String aStreet, Integer aZipcode, String aCity) {
+	public Address(String aStreet, String aNumber, Integer aZipcode, String aCity) {
 		super();
 		street = aStreet;
+		number = aNumber;
 		zipcode = aZipcode;
 		city = aCity;
 	}
@@ -52,6 +57,14 @@ public class Address implements Serializable {
 
 	public void setStreet(String aStreet) {
 		street = aStreet;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String aNumber) {
+		number = aNumber;
 	}
 
 	public Integer getZipcode() {

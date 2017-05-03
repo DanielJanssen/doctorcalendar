@@ -13,6 +13,7 @@ import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice;
 import de.th_koeln.doctorcalendar.application.entity.PhoneNumber;
 import de.th_koeln.doctorcalendar.application.entity.User;
+import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalOfficeRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
@@ -43,7 +44,7 @@ public class TestdataGenerator {
 
 	private MedicalOffice getFirstMedicalOffice() {
 		MedicalOffice medicalOffice = new MedicalOffice("Arztpraxis Dr. Günther", Speciality.INTERNIST, new Date(), new Date(), "www.guenther-allgemein.de",
-				"info@guenther-allgemein.de", new PhoneNumber("0211", "1234567"), new Address("Koenigsallee", 40223, "Düsseldorf"));
+				"info@guenther-allgemein.de", new PhoneNumber("0211", "1234567"), new Address("Koenigsallee", "20", 40223, "Düsseldorf"));
 		medicalOffice.getCaregivings().add(new Caregiving("Blutabnahme", 15));
 		medicalOffice.getCaregivings().add(new Caregiving("EKG", 30));
 		medicalOffice.getCaregivings().add(new Caregiving("Sprechstunde", 15));
@@ -53,7 +54,7 @@ public class TestdataGenerator {
 
 	private MedicalOffice getSecondMedicalOffice() {
 		MedicalOffice medicalOffice = new MedicalOffice("Zahnarztpraxis Stockum", Speciality.DENTIST, new Date(), new Date(), "www.zahnarzt-stockum.de",
-				"info@zahnarzt-stockum.de", new PhoneNumber("0211", "223344"), new Address("Lugallee", 40350, "Düsseldorf"));
+				"info@zahnarzt-stockum.de", new PhoneNumber("0211", "223344"), new Address("Lugallee", "12", 40350, "Düsseldorf"));
 		medicalOffice.getCaregivings().add(new Caregiving("Kontrolle", 15));
 		medicalOffice.getCaregivings().add(new Caregiving("Zahn ziehen", 60));
 		medicalOffice.getCaregivings().add(new Caregiving("Röntgen", 15));
@@ -63,7 +64,7 @@ public class TestdataGenerator {
 
 	private MedicalOffice getThirdMedicalOffice() {
 		MedicalOffice medicalOffice = new MedicalOffice("Zahnarztpraxis Benrath", Speciality.DENTIST, new Date(), new Date(), "www.zahnarzt-benrath.de",
-				"info@zahnarzt-benrath.de", new PhoneNumber("0211", "7649104"), new Address("Am Schloss", 40250, "Düsseldorf"));
+				"info@zahnarzt-benrath.de", new PhoneNumber("0211", "7649104"), new Address("Am Schloss", "4a", 40250, "Düsseldorf"));
 		medicalOffice.getCaregivings().add(new Caregiving("Kontrolle", 20));
 		medicalOffice.getCaregivings().add(new Caregiving("Zahn ziehen", 80));
 		medicalOffice.getCaregivings().add(new Caregiving("Röntgen", 20));
@@ -73,13 +74,15 @@ public class TestdataGenerator {
 
 	private User getFirstUser() {
 		User user = new User("PeterMueller", "Peter", "Müller", "muellerp@web.de", "PeterMueller", new PhoneNumber("01520", "1726905"),
-				new Address("Lindenstraße", 40233, "Düsseldorf"));
-		user.getMedicalAppointments()
-				.add(new MedicalAppointment(getPastDate(-5), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user, thirdMedicalOffice));
-		user.getMedicalAppointments()
-				.add(new MedicalAppointment(getPastDate(5), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user, firstMedicalOffice));
-		user.getMedicalAppointments().add(new MedicalAppointment(new Date(), getTimeAt(9, 0), getTimeAt(10, 0), "Zahn ziehen", null, user, thirdMedicalOffice));
-		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice));
+				new Address("Lindenstraße", "36", 40233, "Düsseldorf"));
+		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-5), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user,
+				thirdMedicalOffice, MedicalAppointmentState.ACCEPTED));
+		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(5), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user,
+				firstMedicalOffice, MedicalAppointmentState.RESERVED));
+		user.getMedicalAppointments().add(new MedicalAppointment(new Date(), getTimeAt(9, 0), getTimeAt(10, 0), "Zahn ziehen", null, user, thirdMedicalOffice,
+				MedicalAppointmentState.ACCEPTED));
+		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice,
+				MedicalAppointmentState.ACCEPTED));
 		return user;
 	}
 

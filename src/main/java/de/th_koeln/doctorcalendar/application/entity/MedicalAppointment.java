@@ -5,12 +5,15 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.application.entity.uuid.UuidGenerator;
 
 @Entity
@@ -45,6 +48,10 @@ public class MedicalAppointment implements Serializable {
 	@Column(length = 255, nullable = true, unique = false)
 	private String comment;
 
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20, nullable = false, unique = false)
+	MedicalAppointmentState state;
+
 	@ManyToOne
 	private User user;
 
@@ -55,7 +62,8 @@ public class MedicalAppointment implements Serializable {
 		super();
 	}
 
-	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice) {
+	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice,
+			MedicalAppointmentState aState) {
 		super();
 		date = aDate;
 		timeFrom = aTimeFrom;
@@ -64,6 +72,7 @@ public class MedicalAppointment implements Serializable {
 		comment = aComment;
 		user = aUser;
 		medicalOffice = aMedicalOffice;
+		state = aState;
 	}
 
 	public String getId() {
@@ -108,6 +117,14 @@ public class MedicalAppointment implements Serializable {
 
 	public void setComment(String aComment) {
 		comment = aComment;
+	}
+
+	public MedicalAppointmentState getState() {
+		return state;
+	}
+
+	public void setState(MedicalAppointmentState aState) {
+		state = aState;
 	}
 
 	public User getUser() {
