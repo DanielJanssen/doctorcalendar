@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.spring.annotation.SpringComponent;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 
 @SpringComponent
 public class MedicalAppointmentService {
 
+	@Autowired
+	MedicalAppointmentRepository repository;
+
 	public List<MedicalAppointment> getNextMedicalAppointments(String aLoginUserName) {
 		ArrayList<MedicalAppointment> medicalAppointments = new ArrayList<>();
-		mockMedicalAppointments(medicalAppointments);
+		medicalAppointments.addAll(repository.findByDateGreaterThanAndUserLoginName(new Date(), aLoginUserName));
 		return medicalAppointments;
-	}
-
-	private void mockMedicalAppointments(ArrayList<MedicalAppointment> aMedicalAppointments) {
-		MedicalAppointment tempMedicalAppointment = new MedicalAppointment();
-		tempMedicalAppointment.setDate(new Date());
-		aMedicalAppointments.add(tempMedicalAppointment);
 	}
 }

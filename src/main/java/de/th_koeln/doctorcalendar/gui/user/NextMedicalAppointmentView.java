@@ -25,7 +25,7 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 	private NextMedicalAppointmentController controller;
 
 	@Override
-	public void enter(ViewChangeEvent aEvent) {
+	public void enter(@SuppressWarnings("unused") ViewChangeEvent anEvent) {
 		removeAllComponents();
 		controller.findNextMedicalAppointments();
 		addAllComponents();
@@ -36,7 +36,11 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		addComponent(new NavigationComponent());
 		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
-		Grid grid = new Grid(container);
+		addComponent(getGrid(container));
+	}
+
+	private Grid getGrid(BeanItemContainer<MedicalAppointment> aContainer) {
+		Grid grid = new Grid(aContainer);
 		grid.setSizeFull();
 		grid.removeAllColumns();
 		grid.addColumn("date").setHeaderCaption("Datum");
@@ -46,8 +50,7 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		grid.addColumn("description").setHeaderCaption("Grund");
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		grid.addSelectionListener(controller.getSelectionListener());
-
-		addComponent(grid);
+		return grid;
 	}
 
 	public NextMedicalAppointmentModel getModel() {
