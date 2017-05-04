@@ -3,6 +3,7 @@ package de.th_koeln.doctorcalendar.application.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -59,7 +60,7 @@ public class MedicalAppointment implements Serializable {
 	@ManyToOne
 	private User user;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.DETACH)
 	private MedicalOffice medicalOffice = new MedicalOffice();
 
 	public MedicalAppointment() {
@@ -67,7 +68,7 @@ public class MedicalAppointment implements Serializable {
 	}
 
 	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice,
-			MedicalAppointmentState aState, Caregiving careGiving) {
+			MedicalAppointmentState aState, Caregiving aCareGiving) {
 		super();
 		date = aDate;
 		timeFrom = aTimeFrom;
@@ -77,6 +78,7 @@ public class MedicalAppointment implements Serializable {
 		user = aUser;
 		medicalOffice = aMedicalOffice;
 		state = aState;
+		careGiving = aCareGiving;
 	}
 
 	public String getId() {
