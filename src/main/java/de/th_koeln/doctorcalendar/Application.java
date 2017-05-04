@@ -20,11 +20,6 @@ public class Application {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
-
 		};
 	}
 }
-
-// TODO rt57, 03.05.2017: MedicalAppointment fehlt Caregiving
-
-// TODO rt57, 03.05.2017: Doku: Entitätenmodell/Klassendiagramm: Hausnummer, MedicalAppointmentState

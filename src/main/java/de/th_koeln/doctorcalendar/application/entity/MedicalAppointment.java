@@ -53,6 +53,10 @@ public class MedicalAppointment implements Serializable {
 	MedicalAppointmentState state;
 
 	@ManyToOne
+	@NotNull
+	private Caregiving careGiving;
+
+	@ManyToOne
 	private User user;
 
 	@ManyToOne
@@ -63,7 +67,7 @@ public class MedicalAppointment implements Serializable {
 	}
 
 	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice,
-			MedicalAppointmentState aState) {
+			MedicalAppointmentState aState, Caregiving careGiving) {
 		super();
 		date = aDate;
 		timeFrom = aTimeFrom;
@@ -125,6 +129,14 @@ public class MedicalAppointment implements Serializable {
 
 	public void setState(MedicalAppointmentState aState) {
 		state = aState;
+	}
+
+	public Caregiving getCareGiving() {
+		return careGiving;
+	}
+
+	public void setCareGiving(Caregiving aCareGiving) {
+		careGiving = aCareGiving;
 	}
 
 	public User getUser() {

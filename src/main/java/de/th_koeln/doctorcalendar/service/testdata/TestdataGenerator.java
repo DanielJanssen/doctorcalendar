@@ -76,13 +76,13 @@ public class TestdataGenerator {
 		User user = new User("PeterMueller", "Peter", "Müller", "muellerp@web.de", "PeterMueller", new PhoneNumber("01520", "1726905"),
 				new Address("Lindenstraße", "36", 40233, "Düsseldorf"));
 		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-5), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user,
-				thirdMedicalOffice, MedicalAppointmentState.ACCEPTED));
+				thirdMedicalOffice, MedicalAppointmentState.ACCEPTED, thirdMedicalOffice.getCaregivings().get(0)));
 		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(5), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user,
-				firstMedicalOffice, MedicalAppointmentState.RESERVED));
+				firstMedicalOffice, MedicalAppointmentState.RESERVED, firstMedicalOffice.getCaregivings().get(0)));
 		user.getMedicalAppointments().add(new MedicalAppointment(new Date(), getTimeAt(9, 0), getTimeAt(10, 0), "Zahn ziehen", null, user, thirdMedicalOffice,
-				MedicalAppointmentState.ACCEPTED));
+				MedicalAppointmentState.ACCEPTED, thirdMedicalOffice.getCaregivings().get(1)));
 		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice,
-				MedicalAppointmentState.ACCEPTED));
+				MedicalAppointmentState.ACCEPTED, firstMedicalOffice.getCaregivings().get(1)));
 		return user;
 	}
 
