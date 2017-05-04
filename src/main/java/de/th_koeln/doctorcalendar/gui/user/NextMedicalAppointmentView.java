@@ -5,6 +5,9 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.VerticalLayout;
@@ -37,6 +40,9 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
 		addComponent(getGrid(container));
+		Component tempCancelMedicalAppointmentButton = getCancelMedicalAppointmentButton();
+		addComponent(tempCancelMedicalAppointmentButton);
+		setComponentAlignment(tempCancelMedicalAppointmentButton, Alignment.MIDDLE_LEFT);
 	}
 
 	private Grid getGrid(BeanItemContainer<MedicalAppointment> aContainer) {
@@ -51,6 +57,12 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		grid.addSelectionListener(controller.getSelectionListener());
 		return grid;
+	}
+
+	private Component getCancelMedicalAppointmentButton() {
+		Button tempButton = new Button("Termin absagen");
+		tempButton.addClickListener(controller.getClickListener());
+		return tempButton;
 	}
 
 	public NextMedicalAppointmentModel getModel() {

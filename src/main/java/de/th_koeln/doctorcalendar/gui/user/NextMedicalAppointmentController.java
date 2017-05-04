@@ -10,6 +10,8 @@ import com.vaadin.event.SelectionEvent;
 import com.vaadin.event.SelectionEvent.SelectionListener;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
@@ -48,6 +50,18 @@ public class NextMedicalAppointmentController {
 				} else {
 					getModel().setSelectedMedicalAppointment(null);
 				}
+			}
+		};
+	}
+
+	public ClickListener getClickListener() {
+		return new ClickListener() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent aEvent) {
+				// TODO rt57, 04.05.2017: gucke ob was selektiert, wenn ja dann popup-dialog
 			}
 		};
 	}

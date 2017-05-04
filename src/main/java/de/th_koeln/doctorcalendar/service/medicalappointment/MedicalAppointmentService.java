@@ -22,4 +22,5 @@ public class MedicalAppointmentService {
 		medicalAppointments.addAll(repository.findByDateGreaterThanAndUserLoginName(new Date(), aLoginUserName));
 		return medicalAppointments;
 	}
+
 }

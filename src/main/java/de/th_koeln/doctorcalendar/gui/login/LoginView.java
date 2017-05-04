@@ -17,7 +17,6 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
 import de.th_koeln.doctorcalendar.service.login.LoginService;
-import de.th_koeln.doctorcalendar.service.testdata.TestdataGenerator;
 
 @SpringComponent
 @VaadinSessionScope
@@ -33,16 +32,12 @@ public class LoginView extends VerticalLayout implements View {
 	@Autowired
 	LoginService loginService;
 
-	@Autowired
-	TestdataGenerator testdata;
-
 	@Override
 	public void enter(ViewChangeEvent aEvent) {
 		addAllComponents();
 		setAlignment();
 		setSpacing(true);
 		buttonLogin.addClickListener(getLoginClickListener());
-		testdata.generateTestData();
 	}
 
 	private void addAllComponents() {
