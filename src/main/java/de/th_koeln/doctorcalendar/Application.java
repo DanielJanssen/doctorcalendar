@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import de.th_koeln.doctorcalendar.service.testdata.TestdataGenerator;
+
 @SpringBootApplication
 public class Application {
 
@@ -18,8 +20,9 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner() {
+	public CommandLineRunner commandLineRunner(TestdataGenerator testdata) {
 		return args -> {
+			testdata.generateTestData();
 		};
 	}
 }

@@ -43,6 +43,7 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		Component tempCancelMedicalAppointmentButton = getCancelMedicalAppointmentButton();
 		addComponent(tempCancelMedicalAppointmentButton);
 		setComponentAlignment(tempCancelMedicalAppointmentButton, Alignment.MIDDLE_LEFT);
+
 	}
 
 	private Grid getGrid(BeanItemContainer<MedicalAppointment> aContainer) {

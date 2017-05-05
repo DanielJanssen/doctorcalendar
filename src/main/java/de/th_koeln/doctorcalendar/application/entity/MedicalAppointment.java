@@ -42,8 +42,7 @@ public class MedicalAppointment implements Serializable {
 	@NotNull
 	private Date timeTo;
 
-	@Column(length = 63, nullable = false, unique = false)
-	@NotNull
+	@Column(length = 63, nullable = true, unique = false)
 	private String description;
 
 	@Column(length = 255, nullable = true, unique = false)
@@ -54,7 +53,6 @@ public class MedicalAppointment implements Serializable {
 	MedicalAppointmentState state;
 
 	@ManyToOne
-	@NotNull
 	private Caregiving careGiving;
 
 	@ManyToOne
