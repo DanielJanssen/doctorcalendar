@@ -1,0 +1,12 @@
+1.) MySQL starten (Xampp Controlpanel, Apache + MySQL starten
+2) Neue Datenbank unter http://localhost/phpmyadmin/ mit namen "doctorcalendar" anlegen
+3) In die Klasse de.th_koeln.doctorcalendar.Application gehen und dort die Zeile 25 (//			testdata.generateTestData();) einkommentieren
+	=> "//" entfernen
+4) Auf diese Klasse: Rechtsklick, run as Java Application
+	=> Dadurch startet die Applikation und die Tabellen mitsamt den Testdaten werden generiert
+5) Applikation stoppen (rotes Viereck)
+6) Zeile 25 wieder auskommentieren ("//" wieder davor schreiben)
+7) Applikation wieder starten wie eben oder über Strg+F11 (Tastenkürzel für das erneute Ausführen des letzten Starts)
+8) Über den Browser http://localhost:8080 aufrufen
+9) Benutzername "PeterMueller", Passwort ebenso
+10) Ausprobieren... Wenn die Daten kaputt / verbraucht sind könnt ihr die Datenbank über MySQL droppen und dann wie oben beschrieben neu aufsetzen
