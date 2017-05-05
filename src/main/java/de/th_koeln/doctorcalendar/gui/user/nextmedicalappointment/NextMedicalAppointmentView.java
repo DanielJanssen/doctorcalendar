@@ -56,13 +56,13 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 		grid.addColumn("medicalOffice.speciality").setHeaderCaption("Fachrichtung");
 		grid.addColumn("description").setHeaderCaption("Grund");
 		grid.setSelectionMode(SelectionMode.SINGLE);
-		grid.addSelectionListener(controller.getSelectionListener());
+		grid.addSelectionListener(controller.getGridSelectionListener());
 		return grid;
 	}
 
 	private Component getCancelMedicalAppointmentButton() {
 		Button tempButton = new Button("Termin absagen");
-		tempButton.addClickListener(controller.getClickListener());
+		tempButton.addClickListener(controller.getCancelMedicalAppointmentClickListener());
 		return tempButton;
 	}
 

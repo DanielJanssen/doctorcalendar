@@ -42,7 +42,7 @@ public class NextMedicalAppointmentController {
 		view.setController(this);
 	}
 
-	public SelectionListener getSelectionListener() {
+	public SelectionListener getGridSelectionListener() {
 		return new SelectionListener() {
 			private static final long serialVersionUID = 1L;
 
@@ -57,14 +57,13 @@ public class NextMedicalAppointmentController {
 		};
 	}
 
-	public ClickListener getClickListener() {
+	public ClickListener getCancelMedicalAppointmentClickListener() {
 		return new ClickListener() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
-				// TODO rt57, 04.05.2017: gucke ob was selektiert, wenn ja dann popup-dialog
 				if (getModel().getSelectedMedicalAppointment() == null) {
 					Notification.show("Bitte wähle zuerst einen Termin aus");
 					return;
