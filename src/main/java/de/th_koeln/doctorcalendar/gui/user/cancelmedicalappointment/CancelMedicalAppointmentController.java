@@ -1,7 +1,5 @@
 package de.th_koeln.doctorcalendar.gui.user.cancelmedicalappointment;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.spring.annotation.SpringComponent;
@@ -17,17 +15,10 @@ import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentS
 @VaadinSessionScope
 public class CancelMedicalAppointmentController {
 
-	@Autowired
 	CancelMedicalAppointmentView view;
 
 	@Autowired
 	MedicalAppointmentService service;
-
-	@PostConstruct
-	public void init() {
-		view.setController(this);
-		view.enter();
-	}
 
 	protected ClickListener getCancelCloseListener() {
 		return new ClickListener() {
@@ -53,7 +44,13 @@ public class CancelMedicalAppointmentController {
 	}
 
 	public void initView(MedicalAppointment aMedicalAppointment) {
-		view.setModel(new CancelMedicalAppointmentModel(aMedicalAppointment));
+		if (view == null) {
+			view = new CancelMedicalAppointmentView();
+			view.setController(this);
+			view.setModel(new CancelMedicalAppointmentModel(aMedicalAppointment));
+			view.enter();
+		}
+
 		UI.getCurrent().addWindow(view);
 	}
 }

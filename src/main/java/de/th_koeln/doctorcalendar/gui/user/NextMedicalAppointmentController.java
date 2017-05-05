@@ -26,7 +26,6 @@ public class NextMedicalAppointmentController {
 	private MedicalAppointmentService medicalAppointmentService;
 	@Autowired
 	private NextMedicalAppointmentView view;
-	@Autowired
 	CancelMedicalAppointmentController cancelMedicalAppointmentController;
 
 	public void findNextMedicalAppointments() {
@@ -70,7 +69,7 @@ public class NextMedicalAppointmentController {
 					Notification.show("Bitte wähle zuerst einen Termin aus");
 					return;
 				}
-				cancelMedicalAppointmentController.initView(getModel().getSelectedMedicalAppointment());
+				new CancelMedicalAppointmentController().initView(getModel().getSelectedMedicalAppointment());
 			}
 		};
 	}
