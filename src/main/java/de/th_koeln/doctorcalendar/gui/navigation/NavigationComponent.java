@@ -9,8 +9,8 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
-import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
-import de.th_koeln.doctorcalendar.gui.user.PastMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.nextmedicalappointment.NextMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment.PastMedicalAppointmentView;
 
 @SpringComponent
 @VaadinSessionScope

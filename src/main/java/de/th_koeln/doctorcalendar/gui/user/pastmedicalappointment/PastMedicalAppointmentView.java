@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user;
+package de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;

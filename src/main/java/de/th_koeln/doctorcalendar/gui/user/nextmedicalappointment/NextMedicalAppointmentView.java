@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user;
+package de.th_koeln.doctorcalendar.gui.user.nextmedicalappointment;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;

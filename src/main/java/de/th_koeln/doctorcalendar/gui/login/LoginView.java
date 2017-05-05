@@ -15,7 +15,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import de.th_koeln.doctorcalendar.gui.user.NextMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.nextmedicalappointment.NextMedicalAppointmentView;
 import de.th_koeln.doctorcalendar.service.login.LoginService;
 
 @SpringComponent
