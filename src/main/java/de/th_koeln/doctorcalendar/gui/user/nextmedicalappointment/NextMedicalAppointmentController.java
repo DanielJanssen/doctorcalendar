@@ -29,17 +29,13 @@ public class NextMedicalAppointmentController {
 	CancelMedicalAppointmentController cancelMedicalAppointmentController;
 
 	public void findNextMedicalAppointments() {
-		List<MedicalAppointment> tempNextMedicalAppointments = medicalAppointmentService.getNextMedicalAppointments(view.getUserName());
-		view.setModel(new NextMedicalAppointmentModel(tempNextMedicalAppointments));
-	}
-
-	public NextMedicalAppointmentView getView() {
-		return view;
+		List<MedicalAppointment> tempNextMedicalAppointments = medicalAppointmentService.getNextMedicalAppointments(getView().getUserName());
+		getView().setModel(new NextMedicalAppointmentModel(tempNextMedicalAppointments));
 	}
 
 	@PostConstruct
 	public void init() {
-		view.setController(this);
+		getView().setController(this);
 	}
 
 	public SelectionListener getGridSelectionListener() {
@@ -73,8 +69,12 @@ public class NextMedicalAppointmentController {
 		};
 	}
 
+	public NextMedicalAppointmentView getView() {
+		return view;
+	}
+
 	public NextMedicalAppointmentModel getModel() {
-		return view.getModel();
+		return getView().getModel();
 	}
 
 }

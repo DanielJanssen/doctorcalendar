@@ -20,11 +20,8 @@ import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 public class NextMedicalAppointmentView extends VerticalLayout implements View {
 
 	private static final long serialVersionUID = 1L;
-
 	public static final String VIEW_NAME = "Kommende Termine";
-
 	private NextMedicalAppointmentModel model;
-
 	private NextMedicalAppointmentController controller;
 
 	@Override
