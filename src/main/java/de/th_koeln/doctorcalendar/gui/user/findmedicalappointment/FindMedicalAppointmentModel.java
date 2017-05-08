@@ -10,12 +10,10 @@ public class FindMedicalAppointmentModel {
 	private List<MedicalAppointment> medicalAppointments;
 	private MedicalAppointment selectedMedicalAppointment;
 
-	public FindMedicalAppointmentModel(FindMedicalAppointmentSearchParameter aSearchParameter, List<MedicalAppointment> aMedicalAppointments,
-			MedicalAppointment aSelectedMedicalAppointment) {
+	public FindMedicalAppointmentModel(FindMedicalAppointmentSearchParameter aSearchParameter, List<MedicalAppointment> aMedicalAppointments) {
 		super();
 		searchParameter = aSearchParameter;
 		medicalAppointments = aMedicalAppointments;
-		selectedMedicalAppointment = aSelectedMedicalAppointment;
 	}
 
 	public FindMedicalAppointmentSearchParameter getSearchParameter() {
@@ -28,6 +26,10 @@ public class FindMedicalAppointmentModel {
 
 	public MedicalAppointment getSelectedMedicalAppointment() {
 		return selectedMedicalAppointment;
+	}
+
+	public void setSelectedMedicalAppointment(MedicalAppointment aSelectedMedicalAppointment) {
+		selectedMedicalAppointment = aSelectedMedicalAppointment;
 	}
 
 }

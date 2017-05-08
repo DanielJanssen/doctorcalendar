@@ -1,5 +1,7 @@
 package de.th_koeln.doctorcalendar.gui;
 
+import java.util.Locale;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
@@ -43,6 +45,7 @@ public class CalendarUi extends UI {
 
 	@Override
 	protected void init(@SuppressWarnings("unused") VaadinRequest aRequest) {
+		setLocale(Locale.GERMANY);
 		getPage().setTitle("Ärzteterminkalender - Finde deinen nächsten Termin");
 		navigator = new Navigator(this, this);
 		navigator.addView(LoginView.VIEW_NAME, loginView);

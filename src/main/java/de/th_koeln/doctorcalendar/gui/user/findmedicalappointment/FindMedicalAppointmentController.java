@@ -1,5 +1,7 @@
 package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
 
+import java.util.ArrayList;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ public class FindMedicalAppointmentController {
 	@PostConstruct
 	public void init() {
 		getView().setController(this);
+		getView().setModel(new FindMedicalAppointmentModel(new FindMedicalAppointmentSearchParameter(), new ArrayList<>()));
 	}
 
 	public FindMedicalAppointmentView getView() {
