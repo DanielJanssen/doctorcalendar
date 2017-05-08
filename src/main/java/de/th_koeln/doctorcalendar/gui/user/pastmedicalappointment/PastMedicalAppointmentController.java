@@ -1,6 +1,5 @@
 package de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,10 +12,14 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
 @VaadinSessionScope
 public class PastMedicalAppointmentController {
+
+	@Autowired
+	MedicalAppointmentService service;
 
 	@Autowired
 	PastMedicalAppointmentView view;
@@ -50,8 +53,7 @@ public class PastMedicalAppointmentController {
 	}
 
 	public void findPastMedicalAppointments() {
-		List<MedicalAppointment> medicalAppointments = new ArrayList<>();
-		// TODO rt57, 05.05.2017: service findData
+		List<MedicalAppointment> medicalAppointments = service.getPastMedicalAppointment(view.getUserName());
 		view.setModel(new PastMedicalAppointmentModel(medicalAppointments));
 	}
 

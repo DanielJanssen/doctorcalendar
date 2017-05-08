@@ -9,6 +9,7 @@ import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 
 public interface MedicalAppointmentRepository extends CrudRepository<MedicalAppointment, String> {
 
-	// TODO rt57, 03.05.2017: größer gleich heute am besten
 	public List<MedicalAppointment> findByDateGreaterThanAndUserLoginName(Date aDate, String aLoginName);
+
+	public List<MedicalAppointment> findByDateBeforeAndUserLoginName(Date aDate, String aLoginName);
 }
