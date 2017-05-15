@@ -58,9 +58,9 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 	}
 
 	private Component getCancelMedicalAppointmentButton() {
-		Button tempButton = new Button("Termin absagen");
-		tempButton.addClickListener(controller.getCancelMedicalAppointmentClickListener());
-		return tempButton;
+		Button button = new Button("Termin absagen");
+		button.addClickListener(controller.getCancelMedicalAppointmentClickListener());
+		return button;
 	}
 
 	public NextMedicalAppointmentModel getModel() {

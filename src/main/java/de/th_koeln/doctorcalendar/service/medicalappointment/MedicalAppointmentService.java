@@ -10,6 +10,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
+import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentSearchParameter;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 
 @SpringComponent
@@ -36,6 +37,10 @@ public class MedicalAppointmentService {
 		ArrayList<MedicalAppointment> medicalAppointments = new ArrayList<>();
 		medicalAppointments.addAll(repository.findByDateBeforeAndUserLoginName(new Date(), aLoginUserName));
 		return medicalAppointments;
+	}
+
+	public List<MedicalAppointment> findMedicalAppointment(FindMedicalAppointmentSearchParameter aSearchParameter) {
+		return null;
 	}
 
 }

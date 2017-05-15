@@ -3,11 +3,12 @@ package de.th_koeln.doctorcalendar.persistence.repository;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 
-public interface MedicalAppointmentRepository extends CrudRepository<MedicalAppointment, String> {
+public interface MedicalAppointmentRepository extends CrudRepository<MedicalAppointment, String>, JpaSpecificationExecutor<MedicalAppointment> {
 
 	public List<MedicalAppointment> findByDateGreaterThanAndUserLoginName(Date aDate, String aLoginName);
 

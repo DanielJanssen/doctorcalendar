@@ -32,4 +32,12 @@ public class FindMedicalAppointmentModel {
 		selectedMedicalAppointment = aSelectedMedicalAppointment;
 	}
 
+	public void setSearchParameter(FindMedicalAppointmentSearchParameter aSearchParameter) {
+		searchParameter = aSearchParameter;
+	}
+
+	public void setMedicalAppointments(List<MedicalAppointment> aMedicalAppointments) {
+		medicalAppointments = aMedicalAppointments;
+	}
+
 }

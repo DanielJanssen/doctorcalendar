@@ -1,18 +1,24 @@
 package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
 
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.DateField;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
 import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
@@ -35,12 +41,27 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 
 	private void addAllComponents() {
 		addComponent(new NavigationComponent());
-		addComponent(getSearchCriteria());
+		addComponent(getSearchPanel());
+		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
+		container.addNestedContainerBean("medicalOffice");
+
+		addComponent(getGrid(container));
+		addComponent(getFooterButtons());
 	}
 
-	private Panel getSearchCriteria() {
+	private Panel getSearchPanel() {
 		Panel searchPanel = new Panel();
 		searchPanel.setCaption("Suchkriterien");
+		VerticalLayout verticalLayout = new VerticalLayout();
+		verticalLayout.setSpacing(true);
+
+		verticalLayout.addComponent(getSearchCriteria());
+		verticalLayout.addComponent(getButtonsForSearchPanel());
+		searchPanel.setContent(verticalLayout);
+		return searchPanel;
+	}
+
+	private HorizontalLayout getSearchCriteria() {
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 		TextField medicalOfficeName = new TextField("Praxisname", model.getSearchParameter().getMedicalOfficeName());
 		horizontalLayout.addComponent(medicalOfficeName);
@@ -73,8 +94,53 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		horizontalLayout.addComponent(maximumDistance);
 
 		horizontalLayout.setSpacing(true);
-		searchPanel.setContent(horizontalLayout);
-		return searchPanel;
+		return horizontalLayout;
+	}
+
+	private HorizontalLayout getButtonsForSearchPanel() {
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+		Button resetButton = new Button("Kriterien zurücksetzen");
+		resetButton.addClickListener(controller.getResetClickListener());
+		horizontalLayout.addComponent(resetButton);
+
+		Button searchButton = new Button("Suche");
+		searchButton.addClickListener(controller.getSearchClickListener());
+		horizontalLayout.addComponent(searchButton);
+		horizontalLayout.setSpacing(true);
+		return horizontalLayout;
+	}
+
+	private Grid getGrid(BeanItemContainer<MedicalAppointment> aContainer) {
+		Grid grid = new Grid(aContainer);
+		grid.setSizeFull();
+		grid.removeAllColumns();
+		grid.addColumn("date").setHeaderCaption("Datum");
+		grid.addColumn("formattedTime").setHeaderCaption("Uhrzeit");
+		grid.addColumn("medicalOffice.name").setHeaderCaption("Arztpraxis");
+		grid.addColumn("medicalOffice.speciality").setHeaderCaption("Fachrichtung");
+		grid.addColumn("description").setHeaderCaption("Grund");
+		grid.setSelectionMode(SelectionMode.SINGLE);
+		grid.addSelectionListener(controller.getGridSelectionListener());
+		return grid;
+	}
+
+	private Component getFooterButtons() {
+		HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+		Button durationsButton = new Button("Behandlungsdauern");
+		durationsButton.addClickListener(controller.getDurationClickListener());
+		horizontalLayout.addComponent(durationsButton);
+
+		Button detailButton = new Button("Arztdetails");
+		detailButton.addClickListener(controller.getDetailsClickListener());
+		horizontalLayout.addComponent(detailButton);
+
+		Button reserveButton = new Button("Termin reservieren");
+		reserveButton.addClickListener(controller.getReserveClickListener());
+		horizontalLayout.addComponent(reserveButton);
+		horizontalLayout.setSpacing(true);
+		return horizontalLayout;
 	}
 
 	public FindMedicalAppointmentModel getModel() {
