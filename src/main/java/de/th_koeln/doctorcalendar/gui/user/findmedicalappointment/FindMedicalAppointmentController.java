@@ -1,6 +1,7 @@
 package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -23,6 +24,7 @@ public class FindMedicalAppointmentController {
 	@Autowired
 	FindMedicalAppointmentView view;
 
+	@Autowired
 	MedicalAppointmentService service;
 
 	@PostConstruct
@@ -71,7 +73,9 @@ public class FindMedicalAppointmentController {
 
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
-				getModel().setMedicalAppointments(service.findMedicalAppointment(getModel().getSearchParameter()));
+				List<MedicalAppointment> foundMedicalAppointments = service.findMedicalAppointment(getModel().getSearchParameter());
+				getModel().setMedicalAppointments(foundMedicalAppointments);
+				getView().setItemsBeanItemContainer(foundMedicalAppointments);
 			}
 		};
 

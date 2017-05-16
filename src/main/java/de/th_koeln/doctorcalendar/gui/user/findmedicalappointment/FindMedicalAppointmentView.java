@@ -1,5 +1,7 @@
 package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
 
+import java.util.List;
+
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.navigator.View;
@@ -31,6 +33,7 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 	public static final String VIEW_NAME = "Neuen Termin finden";
 	private FindMedicalAppointmentController controller;
 	private FindMedicalAppointmentModel model;
+	private BeanItemContainer<MedicalAppointment> container;
 
 	@Override
 	public void enter(@SuppressWarnings("unused") ViewChangeEvent aEvent) {
@@ -42,7 +45,7 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 	private void addAllComponents() {
 		addComponent(new NavigationComponent());
 		addComponent(getSearchPanel());
-		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
+		container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
 
 		addComponent(getGrid(container));
@@ -153,6 +156,11 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 
 	public void setController(FindMedicalAppointmentController aController) {
 		controller = aController;
+	}
+
+	public void setItemsBeanItemContainer(List<MedicalAppointment> aMedicalAppointmentList) {
+		container.removeAllItems();
+		container.addAll(aMedicalAppointmentList);
 	}
 
 }

@@ -12,6 +12,7 @@ import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentSearchParameter;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
+import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentSpecification;
 
 @SpringComponent
 public class MedicalAppointmentService {
@@ -40,7 +41,9 @@ public class MedicalAppointmentService {
 	}
 
 	public List<MedicalAppointment> findMedicalAppointment(FindMedicalAppointmentSearchParameter aSearchParameter) {
-		return null;
+		MedicalAppointmentSpecification specification = new MedicalAppointmentSpecification(aSearchParameter);
+		List<MedicalAppointment> medicalAppointments = repository.findAll(specification);
+		return medicalAppointments;
 	}
 
 }
