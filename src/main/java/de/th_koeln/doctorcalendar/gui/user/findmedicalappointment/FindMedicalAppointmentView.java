@@ -34,6 +34,13 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 	private FindMedicalAppointmentController controller;
 	private FindMedicalAppointmentModel model;
 	private BeanItemContainer<MedicalAppointment> container;
+	private TextField medicalOfficeNameField;
+	private DateField dateFrom;
+	private DateField dateTo;
+	private DateField timeFrom;
+	private DateField timeTo;
+	private ComboBox speciality;
+	private TextField maximumDistance;
 
 	@Override
 	public void enter(@SuppressWarnings("unused") ViewChangeEvent aEvent) {
@@ -66,37 +73,38 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 
 	private HorizontalLayout getSearchCriteria() {
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
-		TextField medicalOfficeName = new TextField("Praxisname", model.getSearchParameter().getMedicalOfficeName());
-		horizontalLayout.addComponent(medicalOfficeName);
+		medicalOfficeNameField = new TextField("Praxisname", model.getSearchParameter().getMedicalOfficeName());
+		horizontalLayout.addComponent(medicalOfficeNameField);
 
-		DateField dateFrom = new DateField("Termin (von)", model.getSearchParameter().getMedicalAppointmentDateFrom());
+		dateFrom = new DateField("Termin (von)", model.getSearchParameter().getMedicalAppointmentDateFrom());
 		dateFrom.setDateFormat(DATE_FORMAT);
 		horizontalLayout.addComponent(dateFrom);
 
-		DateField dateTo = new DateField("Termin (bis)", model.getSearchParameter().getMedicalAppointmentDateTo());
+		dateTo = new DateField("Termin (bis)", model.getSearchParameter().getMedicalAppointmentDateTo());
 		dateTo.setDateFormat(DATE_FORMAT);
 		horizontalLayout.addComponent(dateTo);
 
-		DateField timeFrom = new DateField("Uhrzeit (von)", model.getSearchParameter().getMedicalAppointmentTimeFrom());
+		timeFrom = new DateField("Uhrzeit (von)", model.getSearchParameter().getMedicalAppointmentTimeFrom());
 		timeFrom.setResolution(Resolution.MINUTE);
 		timeFrom.setDateFormat("HH:mm");
 		horizontalLayout.addComponent(timeFrom);
 
-		DateField timeTo = new DateField("Uhrzeit (bis)", model.getSearchParameter().getMedicalAppointmentDateTo());
+		timeTo = new DateField("Uhrzeit (bis)", model.getSearchParameter().getMedicalAppointmentDateTo());
 		timeTo.setResolution(Resolution.MINUTE);
 		timeTo.setDateFormat("HH:mm");
 		horizontalLayout.addComponent(timeTo);
 
-		ComboBox speciality = new ComboBox("Fachbereich");
+		speciality = new ComboBox("Fachbereich");
 		speciality.setNewItemsAllowed(false);
 		speciality.addItems(Speciality.values());
 		horizontalLayout.addComponent(speciality);
 
-		TextField maximumDistance = new TextField("Maximale Entfernung (km)");
+		maximumDistance = new TextField("Maximale Entfernung (km)");
 		maximumDistance.setPropertyDataSource(new ObjectProperty<Integer>(model.getSearchParameter().getMaximumDistanceInKm(), Integer.class));
 		horizontalLayout.addComponent(maximumDistance);
 
 		horizontalLayout.setSpacing(true);
+
 		return horizontalLayout;
 	}
 
@@ -161,6 +169,19 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 	public void setItemsBeanItemContainer(List<MedicalAppointment> aMedicalAppointmentList) {
 		container.removeAllItems();
 		container.addAll(aMedicalAppointmentList);
+	}
+
+	public void setSearchParameterToModel() {
+		FindMedicalAppointmentSearchParameter searchParameter = getModel().getSearchParameter();
+		searchParameter.setMedicalOfficeName(medicalOfficeNameField.getValue());
+		searchParameter.setMedicalAppointmentDateFrom(dateFrom.getValue());
+		searchParameter.setMedicalAppointmentDateTo(dateTo.getValue());
+		searchParameter.setMedicalAppointmentTimeFrom(timeFrom.getValue());
+		searchParameter.setMedicalAppointmentTimeTo(timeFrom.getValue());
+		searchParameter.setSpeciality((Speciality) speciality.getConvertedValue());
+		if (maximumDistance.getValue() != null && maximumDistance.getValue() != "") {
+			searchParameter.setMaximumDistanceInKm(Integer.valueOf(maximumDistance.getValue()));
+		}
 	}
 
 }

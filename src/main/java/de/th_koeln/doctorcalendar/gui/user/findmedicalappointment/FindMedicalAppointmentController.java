@@ -73,6 +73,7 @@ public class FindMedicalAppointmentController {
 
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
+				getView().setSearchParameterToModel();
 				List<MedicalAppointment> foundMedicalAppointments = service.findMedicalAppointment(getModel().getSearchParameter());
 				getModel().setMedicalAppointments(foundMedicalAppointments);
 				getView().setItemsBeanItemContainer(foundMedicalAppointments);

@@ -32,9 +32,33 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 	public Predicate toPredicate(Root<MedicalAppointment> aRoot, CriteriaQuery<?> aQuery, CriteriaBuilder aConditions) {
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		Join<MedicalAppointment, MedicalOffice> join = aRoot.join(MedicalAppointment_.medicalOffice);
-		if (searchParameter.getMedicalOfficeName() != null) {
-			predicates.add(aConditions.equal(aConditions.lower(join.get(MedicalOffice_.name)), searchParameter.getMedicalOfficeName()));
+		if (searchParameter.getMedicalOfficeName() != null && searchParameter.getMedicalOfficeName() != "") {
+			predicates.add(aConditions.like(aConditions.lower(join.get(MedicalOffice_.name)), "%" + searchParameter.getMedicalOfficeName() + "%"));
 		}
+
+		if (searchParameter.getMedicalAppointmentDateFrom() != null || searchParameter.getMedicalAppointmentDateTo() != null) {
+			if (searchParameter.getMedicalAppointmentDateFrom() == null && searchParameter.getMedicalAppointmentDateTo() != null) {
+				predicates.add(aConditions.lessThanOrEqualTo(aRoot.get(MedicalAppointment_.date), searchParameter.getMedicalAppointmentDateTo()));
+			} else if (searchParameter.getMedicalAppointmentDateFrom() != null && searchParameter.getMedicalAppointmentDateTo() == null) {
+				predicates.add(aConditions.greaterThanOrEqualTo(aRoot.get(MedicalAppointment_.date), searchParameter.getMedicalAppointmentDateFrom()));
+			} else {
+				predicates.add(aConditions.between(aRoot.get(MedicalAppointment_.date), searchParameter.getMedicalAppointmentDateFrom(),
+						searchParameter.getMedicalAppointmentDateTo()));
+			}
+		}
+		if (searchParameter.getMedicalAppointmentTimeFrom() != null) {
+
+		}
+		if (searchParameter.getMedicalAppointmentTimeTo() != null) {
+
+		}
+		if (searchParameter.getSpeciality() != null) {
+
+		}
+		if (searchParameter.getMaximumDistanceInKm() != null && searchParameter.getMaximumDistanceInKm() > 0) {
+
+		}
+		// TODO rt57, 17.05.2017: nur FREE termine
 		return andTogether(predicates, aConditions);
 	}
 
