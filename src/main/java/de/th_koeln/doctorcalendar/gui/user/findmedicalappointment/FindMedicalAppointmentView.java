@@ -1,5 +1,6 @@
 package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
 
+import java.sql.Time;
 import java.util.List;
 
 import com.vaadin.data.util.BeanItemContainer;
@@ -130,7 +131,6 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		grid.addColumn("formattedTime").setHeaderCaption("Uhrzeit");
 		grid.addColumn("medicalOffice.name").setHeaderCaption("Arztpraxis");
 		grid.addColumn("medicalOffice.speciality").setHeaderCaption("Fachrichtung");
-		grid.addColumn("description").setHeaderCaption("Grund");
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		grid.addSelectionListener(controller.getGridSelectionListener());
 		return grid;
@@ -176,8 +176,12 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		searchParameter.setMedicalOfficeName(medicalOfficeNameField.getValue());
 		searchParameter.setMedicalAppointmentDateFrom(dateFrom.getValue());
 		searchParameter.setMedicalAppointmentDateTo(dateTo.getValue());
-		searchParameter.setMedicalAppointmentTimeFrom(timeFrom.getValue());
-		searchParameter.setMedicalAppointmentTimeTo(timeFrom.getValue());
+		if (timeFrom.getValue() != null) {
+			searchParameter.setMedicalAppointmentTimeFrom(new Time(timeFrom.getValue().getTime()));
+		}
+		if (timeTo.getValue() != null) {
+			searchParameter.setMedicalAppointmentTimeTo(new Time(timeTo.getValue().getTime()));
+		}
 		searchParameter.setSpeciality((Speciality) speciality.getConvertedValue());
 		if (maximumDistance.getValue() != null && maximumDistance.getValue() != "") {
 			searchParameter.setMaximumDistanceInKm(Integer.valueOf(maximumDistance.getValue()));

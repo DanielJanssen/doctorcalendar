@@ -1,5 +1,6 @@
 package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
 
+import java.sql.Time;
 import java.util.Date;
 
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
@@ -9,8 +10,8 @@ public class FindMedicalAppointmentSearchParameter {
 	private String medicalOfficeName;
 	private Date medicalAppointmentDateFrom;
 	private Date medicalAppointmentDateTo;
-	private Date medicalAppointmentTimeFrom;
-	private Date medicalAppointmentTimeTo;
+	private Time medicalAppointmentTimeFrom;
+	private Time medicalAppointmentTimeTo;
 	private Speciality speciality;
 	private Integer maximumDistanceInKm;
 
@@ -38,19 +39,19 @@ public class FindMedicalAppointmentSearchParameter {
 		medicalAppointmentDateTo = aMedicalAppointmentDateTo;
 	}
 
-	public Date getMedicalAppointmentTimeFrom() {
+	public Time getMedicalAppointmentTimeFrom() {
 		return medicalAppointmentTimeFrom;
 	}
 
-	public void setMedicalAppointmentTimeFrom(Date aMedicalAppointmentTimeFrom) {
+	public void setMedicalAppointmentTimeFrom(Time aMedicalAppointmentTimeFrom) {
 		medicalAppointmentTimeFrom = aMedicalAppointmentTimeFrom;
 	}
 
-	public Date getMedicalAppointmentTimeTo() {
+	public Time getMedicalAppointmentTimeTo() {
 		return medicalAppointmentTimeTo;
 	}
 
-	public void setMedicalAppointmentTimeTo(Date aMedicalAppointmentTimeTo) {
+	public void setMedicalAppointmentTimeTo(Time aMedicalAppointmentTimeTo) {
 		medicalAppointmentTimeTo = aMedicalAppointmentTimeTo;
 	}
 
