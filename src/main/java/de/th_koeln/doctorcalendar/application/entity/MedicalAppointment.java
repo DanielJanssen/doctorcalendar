@@ -50,7 +50,7 @@ public class MedicalAppointment implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20, nullable = false, unique = false)
-	MedicalAppointmentState state;
+	private MedicalAppointmentState state;
 
 	@ManyToOne
 	private Caregiving careGiving;
@@ -65,17 +65,21 @@ public class MedicalAppointment implements Serializable {
 		super();
 	}
 
-	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice,
-			MedicalAppointmentState aState, Caregiving aCareGiving) {
+	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, MedicalAppointmentState aState, MedicalOffice aMedicalOffice) {
 		super();
 		date = aDate;
 		timeFrom = aTimeFrom;
 		timeTo = aTimeTo;
+		state = aState;
+		medicalOffice = aMedicalOffice;
+	}
+
+	public MedicalAppointment(Date aDate, Date aTimeFrom, Date aTimeTo, String aDescription, String aComment, User aUser, MedicalOffice aMedicalOffice,
+			MedicalAppointmentState aState, Caregiving aCareGiving) {
+		this(aDate, aTimeFrom, aTimeTo, aState, aMedicalOffice);
 		description = aDescription;
 		comment = aComment;
 		user = aUser;
-		medicalOffice = aMedicalOffice;
-		state = aState;
 		careGiving = aCareGiving;
 	}
 

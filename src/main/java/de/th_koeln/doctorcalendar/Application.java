@@ -22,7 +22,7 @@ public class Application {
 	@Bean
 	public CommandLineRunner commandLineRunner(TestdataGenerator testdata) {
 		return args -> {
-			//			testdata.generateTestData();
+			testdata.generateTestData();
 		};
 	}
 }

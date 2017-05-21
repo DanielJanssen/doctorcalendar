@@ -26,16 +26,28 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 		searchParameter = aSearchParameter;
 	}
 
-	//http://stackoverflow.com/questions/29348742/spring-data-jpa-creating-specification-query-fetch-joins
-	//	http://stackoverflow.com/questions/27626825/spring-data-jpa-query-by-example
 	@Override
 	public Predicate toPredicate(Root<MedicalAppointment> aRoot, CriteriaQuery<?> aQuery, CriteriaBuilder aConditions) {
 		List<Predicate> predicates = new ArrayList<Predicate>();
 		Join<MedicalAppointment, MedicalOffice> join = aRoot.join(MedicalAppointment_.medicalOffice);
+		addMedicalOfficeName(aConditions, predicates, join);
+		addDateFromTo(aRoot, aConditions, predicates);
+		addTimeFromTo(aRoot, aConditions, predicates);
+		addSpeciality(aConditions, predicates, join);
+		addMaximumDistance();
+		addFreeMedicalAppointments();
+		// TODO rt57, 21.05.2017: nur in der zukunft natürlich
+
+		return andTogether(predicates, aConditions);
+	}
+
+	private void addMedicalOfficeName(CriteriaBuilder aConditions, List<Predicate> predicates, Join<MedicalAppointment, MedicalOffice> join) {
 		if (searchParameter.getMedicalOfficeName() != null && searchParameter.getMedicalOfficeName() != "") {
 			predicates.add(aConditions.like(aConditions.lower(join.get(MedicalOffice_.name)), "%" + searchParameter.getMedicalOfficeName() + "%"));
 		}
+	}
 
+	private void addDateFromTo(Root<MedicalAppointment> aRoot, CriteriaBuilder aConditions, List<Predicate> predicates) {
 		if (searchParameter.getMedicalAppointmentDateFrom() != null || searchParameter.getMedicalAppointmentDateTo() != null) {
 			if (searchParameter.getMedicalAppointmentDateFrom() == null && searchParameter.getMedicalAppointmentDateTo() != null) {
 				predicates.add(aConditions.lessThanOrEqualTo(aRoot.get(MedicalAppointment_.date), searchParameter.getMedicalAppointmentDateTo()));
@@ -46,20 +58,34 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 						searchParameter.getMedicalAppointmentDateTo()));
 			}
 		}
-		if (searchParameter.getMedicalAppointmentTimeFrom() != null) {
+	}
 
+	private void addTimeFromTo(Root<MedicalAppointment> aRoot, CriteriaBuilder aConditions, List<Predicate> predicates) {
+		if (searchParameter.getMedicalAppointmentTimeFrom() != null || searchParameter.getMedicalAppointmentTimeTo() != null) {
+			if (searchParameter.getMedicalAppointmentTimeFrom() == null && searchParameter.getMedicalAppointmentTimeTo() != null) {
+				predicates.add(aConditions.lessThanOrEqualTo(aRoot.get(MedicalAppointment_.timeFrom), searchParameter.getMedicalAppointmentTimeFrom()));
+			} else if (searchParameter.getMedicalAppointmentTimeFrom() != null && searchParameter.getMedicalAppointmentTimeTo() == null) {
+				predicates.add(aConditions.greaterThanOrEqualTo(aRoot.get(MedicalAppointment_.timeTo), searchParameter.getMedicalAppointmentTimeTo()));
+			} else {
+				// TODO rt57, 17.05.2017: time funktioniert noch nicht
+			}
 		}
-		if (searchParameter.getMedicalAppointmentTimeTo() != null) {
+	}
 
-		}
+	private void addSpeciality(CriteriaBuilder aConditions, List<Predicate> predicates, Join<MedicalAppointment, MedicalOffice> join) {
 		if (searchParameter.getSpeciality() != null) {
-
+			predicates.add(aConditions.equal(join.get(MedicalOffice_.speciality), searchParameter.getSpeciality()));
 		}
+	}
+
+	private void addMaximumDistance() {
 		if (searchParameter.getMaximumDistanceInKm() != null && searchParameter.getMaximumDistanceInKm() > 0) {
-
+			// TODO rt57, 17.05.2017: GoogleAufruf oder Tabelle
 		}
+	}
+
+	private void addFreeMedicalAppointments() {
 		// TODO rt57, 17.05.2017: nur FREE termine
-		return andTogether(predicates, aConditions);
 	}
 
 	private Predicate andTogether(List<Predicate> predicates, CriteriaBuilder cb) {

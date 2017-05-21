@@ -1,7 +1,9 @@
 package de.th_koeln.doctorcalendar.service.testdata;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,6 +17,7 @@ import de.th_koeln.doctorcalendar.application.entity.PhoneNumber;
 import de.th_koeln.doctorcalendar.application.entity.User;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
+import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalOfficeRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 
@@ -27,12 +30,12 @@ public class TestdataGenerator {
 	@Autowired
 	MedicalOfficeRepository medicalOfficeRepository;
 
+	@Autowired
+	MedicalAppointmentRepository medicalAppointmentRepository;
+
 	MedicalOffice firstMedicalOffice;
 	MedicalOffice secondMedicalOffice;
 	MedicalOffice thirdMedicalOffice;
-
-	//6 User (3x normal, 3x für Arztpraxis)
-	//jeder normale User 5 Termine bei verschiedenen Praxen
 
 	public void generateTestData() {
 		firstMedicalOffice = medicalOfficeRepository.save(getFirstMedicalOffice());
@@ -40,6 +43,9 @@ public class TestdataGenerator {
 		thirdMedicalOffice = medicalOfficeRepository.save(getThirdMedicalOffice());
 
 		userRepository.save(getFirstUser());
+
+		medicalAppointmentRepository.save(getFreeMedicalAppointments());
+		//freie Termine
 	}
 
 	private MedicalOffice getFirstMedicalOffice() {
@@ -75,18 +81,38 @@ public class TestdataGenerator {
 	private User getFirstUser() {
 		User user = new User("PeterMueller", "Peter", "Müller", "muellerp@web.de", "PeterMueller", new PhoneNumber("01520", "1726905"),
 				new Address("Lindenstraße", "36", 40233, "Düsseldorf"));
-		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-5), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user,
-				thirdMedicalOffice, MedicalAppointmentState.ACCEPTED, thirdMedicalOffice.getCaregivings().get(0)));
-		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(5), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user,
-				firstMedicalOffice, MedicalAppointmentState.RESERVED, firstMedicalOffice.getCaregivings().get(0)));
+		user.getMedicalAppointments().add(new MedicalAppointment(getDate(-5), getTimeAt(9, 0), getTimeAt(9, 20), "Kontrolle", null, user, thirdMedicalOffice,
+				MedicalAppointmentState.ACCEPTED, thirdMedicalOffice.getCaregivings().get(0)));
+		user.getMedicalAppointments().add(new MedicalAppointment(getDate(5), getTimeAt(9, 0), getTimeAt(9, 15), "Blutabnahme", null, user, firstMedicalOffice,
+				MedicalAppointmentState.RESERVED, firstMedicalOffice.getCaregivings().get(0)));
 		user.getMedicalAppointments().add(new MedicalAppointment(new Date(), getTimeAt(9, 0), getTimeAt(10, 0), "Zahn ziehen", null, user, thirdMedicalOffice,
 				MedicalAppointmentState.ACCEPTED, thirdMedicalOffice.getCaregivings().get(1)));
-		user.getMedicalAppointments().add(new MedicalAppointment(getPastDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice,
+		user.getMedicalAppointments().add(new MedicalAppointment(getDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice,
 				MedicalAppointmentState.ACCEPTED, firstMedicalOffice.getCaregivings().get(1)));
 		return user;
 	}
 
-	private Date getPastDate(Integer aDateChangeInDays) {
+	private List<MedicalAppointment> getFreeMedicalAppointments() {
+		List<MedicalAppointment> freeMedicalAppointments = new ArrayList<>();
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(2), getTimeAt(12, 0), getTimeAt(12, 15), MedicalAppointmentState.FREE, firstMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(2), getTimeAt(12, 15), getTimeAt(12, 30), MedicalAppointmentState.FREE, firstMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(2), getTimeAt(14, 30), getTimeAt(14, 45), MedicalAppointmentState.FREE, firstMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(2), getTimeAt(14, 15), getTimeAt(14, 30), MedicalAppointmentState.FREE, firstMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(2), getTimeAt(12, 0), getTimeAt(12, 15), MedicalAppointmentState.FREE, secondMedicalOffice));
+		freeMedicalAppointments
+				.add(new MedicalAppointment(getDate(2), getTimeAt(12, 15), getTimeAt(12, 30), MedicalAppointmentState.FREE, secondMedicalOffice));
+		freeMedicalAppointments
+				.add(new MedicalAppointment(getDate(2), getTimeAt(14, 30), getTimeAt(14, 45), MedicalAppointmentState.FREE, secondMedicalOffice));
+		freeMedicalAppointments
+				.add(new MedicalAppointment(getDate(2), getTimeAt(14, 15), getTimeAt(14, 30), MedicalAppointmentState.FREE, secondMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(3), getTimeAt(8, 0), getTimeAt(8, 20), MedicalAppointmentState.FREE, thirdMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(3), getTimeAt(8, 20), getTimeAt(8, 40), MedicalAppointmentState.FREE, thirdMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(3), getTimeAt(8, 40), getTimeAt(9, 0), MedicalAppointmentState.FREE, thirdMedicalOffice));
+		freeMedicalAppointments.add(new MedicalAppointment(getDate(3), getTimeAt(9, 0), getTimeAt(9, 20), MedicalAppointmentState.FREE, thirdMedicalOffice));
+		return freeMedicalAppointments;
+	}
+
+	private Date getDate(Integer aDateChangeInDays) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DATE, aDateChangeInDays);
 		return calendar.getTime();
