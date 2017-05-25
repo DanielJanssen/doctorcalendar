@@ -208,4 +208,9 @@ public class MedicalOffice implements Serializable {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

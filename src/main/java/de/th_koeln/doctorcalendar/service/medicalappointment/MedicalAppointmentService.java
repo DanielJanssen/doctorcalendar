@@ -34,6 +34,11 @@ public class MedicalAppointmentService {
 		repository.save(aMedicalAppointment);
 	}
 
+	public void reserveMedicalAppointment(MedicalAppointment aMedicalAppointment) {
+		aMedicalAppointment.setState(MedicalAppointmentState.RESERVED);
+		repository.save(aMedicalAppointment);
+	}
+
 	public List<MedicalAppointment> getPastMedicalAppointment(String aLoginUserName) {
 		ArrayList<MedicalAppointment> medicalAppointments = new ArrayList<>();
 		medicalAppointments.addAll(repository.findByDateBeforeAndUserLoginName(new Date(), aLoginUserName));

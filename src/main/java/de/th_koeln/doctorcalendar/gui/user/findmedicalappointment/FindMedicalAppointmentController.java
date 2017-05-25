@@ -13,8 +13,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.gui.user.reservemedicalappointment.ReserveMedicalAppointmentController;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
@@ -111,7 +113,11 @@ public class FindMedicalAppointmentController {
 
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
-				//TODO TerminReservieren
+				if (getModel().getSelectedMedicalAppointment() == null) {
+					Notification.show("Bitte wähle zuerst einen Termin aus");
+					return;
+				}
+				new ReserveMedicalAppointmentController().initView(getModel().getSelectedMedicalAppointment());
 			}
 		};
 	}
