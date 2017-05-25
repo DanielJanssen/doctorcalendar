@@ -4,11 +4,14 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
+
+import de.th_koeln.doctorcalendar.application.entity.Caregiving;
 
 @SpringComponent
 @VaadinSessionScope
@@ -17,6 +20,9 @@ public class ReserveMedicalAppointmentView extends Window {
 	private static final long serialVersionUID = 1L;
 	private ReserveMedicalAppointmentController controller;
 	private ReserveMedicalAppointmentModel model;
+
+	private ComboBox caregiving;
+	private TextField description;
 
 	public ReserveMedicalAppointmentView() {
 
@@ -35,6 +41,7 @@ public class ReserveMedicalAppointmentView extends Window {
 		content.addComponent(getMedicalOffice());
 		content.addComponent(getSpeciality());
 		content.addComponent(getMedicalAppointmentDescription());
+		content.addComponent(getCaregiving());
 		content.addComponent(getButtons());
 		content.setMargin(true);
 
@@ -76,9 +83,17 @@ public class ReserveMedicalAppointmentView extends Window {
 	}
 
 	private TextField getMedicalAppointmentDescription() {
-		TextField textField = new TextField("Grund des Besuches");
-		textField.setWidth("100%");
-		return textField;
+		description = new TextField("Grund des Besuches");
+		description.setWidth("100%");
+		return description;
+	}
+
+	private ComboBox getCaregiving() {
+		caregiving = new ComboBox("Behandlung");
+		caregiving.setNewItemsAllowed(false);
+		caregiving.addItems(getModel().getCaregivings());
+		caregiving.setWidth("100%");
+		return caregiving;
 	}
 
 	private HorizontalLayout getButtons() {
@@ -109,6 +124,17 @@ public class ReserveMedicalAppointmentView extends Window {
 
 	public void setModel(ReserveMedicalAppointmentModel aModel) {
 		model = aModel;
+	}
+
+	public String getUserName() {
+		return getSession().getAttribute("user").toString();
+	}
+
+	public void setUserInput() {
+		if (caregiving.getValue() != null) {
+			getModel().getMedicalAppointment().setCareGiving((Caregiving) caregiving.getValue());
+		}
+		getModel().getMedicalAppointment().setDescription(description.getValue());
 	}
 
 }

@@ -6,6 +6,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
@@ -37,7 +38,12 @@ public class ReserveMedicalAppointmentController {
 
 			@Override
 			public void buttonClick(@SuppressWarnings("unused") ClickEvent event) {
-				service.reserveMedicalAppointment(view.getModel().getMedicalAppointment());
+				view.setUserInput();
+				if (view.getModel().getMedicalAppointment().getCareGiving() == null) {
+					Notification.show("Bitte wähle eine Behandlung aus.");
+					return;
+				}
+				service.reserveMedicalAppointment(view.getModel().getMedicalAppointment(), view.getUserName());
 				view.close(); // Close the sub-window
 			}
 		};
@@ -47,7 +53,7 @@ public class ReserveMedicalAppointmentController {
 		if (view == null) {
 			view = new ReserveMedicalAppointmentView();
 			view.setController(this);
-			view.setModel(new ReserveMedicalAppointmentModel(aMedicalAppointment));
+			view.setModel(new ReserveMedicalAppointmentModel(aMedicalAppointment, aMedicalAppointment.getMedicalOffice().getCaregivings()));
 			view.enter();
 		}
 

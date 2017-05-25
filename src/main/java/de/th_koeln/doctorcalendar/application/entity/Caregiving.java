@@ -87,4 +87,9 @@ public class Caregiving implements Serializable {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return getName() + ": " + getDurcationInMinutes() + " Min.";
+	}
 }

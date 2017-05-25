@@ -29,6 +29,9 @@ public class FindMedicalAppointmentController {
 	@Autowired
 	MedicalAppointmentService service;
 
+	@Autowired
+	ReserveMedicalAppointmentController reserveMedicalAppointmentController;
+
 	@PostConstruct
 	public void init() {
 		getView().setController(this);
@@ -117,7 +120,7 @@ public class FindMedicalAppointmentController {
 					Notification.show("Bitte wähle zuerst einen Termin aus");
 					return;
 				}
-				new ReserveMedicalAppointmentController().initView(getModel().getSelectedMedicalAppointment());
+				reserveMedicalAppointmentController.initView(getModel().getSelectedMedicalAppointment());
 			}
 		};
 	}

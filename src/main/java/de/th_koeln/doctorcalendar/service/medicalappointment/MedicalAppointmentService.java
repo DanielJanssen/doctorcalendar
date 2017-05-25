@@ -13,12 +13,16 @@ import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentSta
 import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentSearchParameter;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentSpecification;
+import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 
 @SpringComponent
 public class MedicalAppointmentService {
 
 	@Autowired
 	MedicalAppointmentRepository repository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	public List<MedicalAppointment> getNextMedicalAppointments(String aLoginUserName) {
 		ArrayList<MedicalAppointment> medicalAppointments = new ArrayList<>();
@@ -34,8 +38,9 @@ public class MedicalAppointmentService {
 		repository.save(aMedicalAppointment);
 	}
 
-	public void reserveMedicalAppointment(MedicalAppointment aMedicalAppointment) {
+	public void reserveMedicalAppointment(MedicalAppointment aMedicalAppointment, String aUserName) {
 		aMedicalAppointment.setState(MedicalAppointmentState.RESERVED);
+		aMedicalAppointment.setUser(userRepository.findByLoginName(aUserName));
 		repository.save(aMedicalAppointment);
 	}
 
