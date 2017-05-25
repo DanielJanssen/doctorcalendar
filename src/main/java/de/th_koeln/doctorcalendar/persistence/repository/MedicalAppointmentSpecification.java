@@ -62,6 +62,7 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 		}
 	}
 
+	//	http://stackoverflow.com/questions/4256561/using-jpa-hibernate-criteria-to-pull-between-a-date
 	private void addTimeFromTo(Root<MedicalAppointment> aRoot, CriteriaBuilder aConditions, List<Predicate> predicates) {
 		if (searchParameter.getMedicalAppointmentTimeFrom() != null || searchParameter.getMedicalAppointmentTimeTo() != null) {
 			if (searchParameter.getMedicalAppointmentTimeFrom() == null && searchParameter.getMedicalAppointmentTimeTo() != null) {
