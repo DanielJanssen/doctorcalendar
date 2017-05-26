@@ -23,6 +23,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
+import de.th_koeln.doctorcalendar.gui.StringToDateConverter;
 import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
 @SpringComponent
@@ -138,8 +139,12 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		grid.addColumn("formattedTime").setHeaderCaption("Uhrzeit");
 		grid.addColumn("medicalOffice.name").setHeaderCaption("Arztpraxis");
 		grid.addColumn("medicalOffice.speciality").setHeaderCaption("Fachrichtung");
+		// TODO rt57, 26.05.2017: entfernungsberechnung / speicherung fehlt noch vollständig zwischen arzt + patient
+		//		grid.addColumn("distance").setHeaderCaption("Entfernung");
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		grid.addSelectionListener(controller.getGridSelectionListener());
+
+		grid.getColumn("date").setConverter(new StringToDateConverter());
 		return grid;
 	}
 
