@@ -1,10 +1,13 @@
-package de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment;
+package de.th_koeln.doctorcalendar.gui.user.medicalappointment.next;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.VerticalLayout;
@@ -14,29 +17,30 @@ import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
 @SpringComponent
 @VaadinSessionScope
-public class PastMedicalAppointmentView extends VerticalLayout implements View {
+public class NextMedicalAppointmentView extends VerticalLayout implements View {
 
 	private static final long serialVersionUID = 1L;
-
-	public static final String VIEW_NAME = "Vergangene Termine";
-
-	PastMedicalAppointmentController controller;
-
-	private PastMedicalAppointmentModel model;
+	public static final String VIEW_NAME = "Kommende Termine";
+	private NextMedicalAppointmentModel model;
+	private NextMedicalAppointmentController controller;
 
 	@Override
-	public void enter(ViewChangeEvent aEvent) {
-		controller.findPastMedicalAppointments();
+	public void enter(@SuppressWarnings("unused") ViewChangeEvent anEvent) {
+		removeAllComponents();
+		controller.findNextMedicalAppointments();
 		addAllComponents();
 		setSpacing(true);
 	}
 
 	private void addAllComponents() {
-		removeAllComponents();
 		addComponent(new NavigationComponent());
 		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
 		addComponent(getGrid(container));
+		Component tempCancelMedicalAppointmentButton = getCancelMedicalAppointmentButton();
+		addComponent(tempCancelMedicalAppointmentButton);
+		setComponentAlignment(tempCancelMedicalAppointmentButton, Alignment.MIDDLE_LEFT);
+
 	}
 
 	private Grid getGrid(BeanItemContainer<MedicalAppointment> aContainer) {
@@ -51,23 +55,28 @@ public class PastMedicalAppointmentView extends VerticalLayout implements View {
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		grid.addSelectionListener(controller.getGridSelectionListener());
 		return grid;
-
 	}
 
-	public PastMedicalAppointmentModel getModel() {
+	private Component getCancelMedicalAppointmentButton() {
+		Button button = new Button("Termin absagen");
+		button.addClickListener(controller.getCancelMedicalAppointmentClickListener());
+		return button;
+	}
+
+	public NextMedicalAppointmentModel getModel() {
 		return model;
 	}
 
-	public void setModel(PastMedicalAppointmentModel aModel) {
+	public void setModel(NextMedicalAppointmentModel aModel) {
 		model = aModel;
-	}
-
-	public void setController(PastMedicalAppointmentController aController) {
-		controller = aController;
 	}
 
 	public String getUserName() {
 		return getSession().getAttribute("user").toString();
+	}
+
+	public void setController(NextMedicalAppointmentController aController) {
+		controller = aController;
 	}
 
 }

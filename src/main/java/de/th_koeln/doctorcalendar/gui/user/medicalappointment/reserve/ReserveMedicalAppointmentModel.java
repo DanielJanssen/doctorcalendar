@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user.reservemedicalappointment;
+package de.th_koeln.doctorcalendar.gui.user.medicalappointment.reserve;
 
 import java.util.List;
 

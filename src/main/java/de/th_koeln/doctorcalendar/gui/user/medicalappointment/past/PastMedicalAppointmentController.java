@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment;
+package de.th_koeln.doctorcalendar.gui.user.medicalappointment.past;
 
 import java.util.List;
 

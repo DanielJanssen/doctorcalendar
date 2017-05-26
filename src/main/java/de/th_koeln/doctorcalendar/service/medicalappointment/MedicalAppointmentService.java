@@ -10,7 +10,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
-import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentSearchParameter;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentSearchParameter;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentSpecification;
 import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;

@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
+package de.th_koeln.doctorcalendar.gui.user.medicalappointment.find;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
-import de.th_koeln.doctorcalendar.gui.user.reservemedicalappointment.ReserveMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.reserve.ReserveMedicalAppointmentController;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent

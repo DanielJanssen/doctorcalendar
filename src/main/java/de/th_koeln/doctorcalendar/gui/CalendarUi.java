@@ -13,12 +13,12 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.gui.login.LoginView;
-import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentController;
-import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentView;
-import de.th_koeln.doctorcalendar.gui.user.nextmedicalappointment.NextMedicalAppointmentController;
-import de.th_koeln.doctorcalendar.gui.user.nextmedicalappointment.NextMedicalAppointmentView;
-import de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment.PastMedicalAppointmentController;
-import de.th_koeln.doctorcalendar.gui.user.pastmedicalappointment.PastMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.next.NextMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.next.NextMedicalAppointmentView;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.past.PastMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.past.PastMedicalAppointmentView;
 
 @SpringUI
 @Theme("valo")

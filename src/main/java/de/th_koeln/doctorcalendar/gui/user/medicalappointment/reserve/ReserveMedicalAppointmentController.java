@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user.cancelmedicalappointment;
+package de.th_koeln.doctorcalendar.gui.user.medicalappointment.reserve;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -6,6 +6,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
@@ -13,9 +14,9 @@ import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentS
 
 @SpringComponent
 @VaadinSessionScope
-public class CancelMedicalAppointmentController {
+public class ReserveMedicalAppointmentController {
 
-	CancelMedicalAppointmentView view;
+	ReserveMedicalAppointmentView view;
 
 	@Autowired
 	MedicalAppointmentService service;
@@ -37,7 +38,12 @@ public class CancelMedicalAppointmentController {
 
 			@Override
 			public void buttonClick(@SuppressWarnings("unused") ClickEvent event) {
-				service.setMedicalAppointmentToFree(view.getModel().getMedicalAppointment());
+				view.setUserInput();
+				if (view.getModel().getMedicalAppointment().getCareGiving() == null) {
+					Notification.show("Bitte wähle eine Behandlung aus.");
+					return;
+				}
+				service.reserveMedicalAppointment(view.getModel().getMedicalAppointment(), view.getUserName());
 				view.close(); // Close the sub-window
 			}
 		};
@@ -45,9 +51,9 @@ public class CancelMedicalAppointmentController {
 
 	public void initView(MedicalAppointment aMedicalAppointment) {
 		if (view == null) {
-			view = new CancelMedicalAppointmentView();
+			view = new ReserveMedicalAppointmentView();
 			view.setController(this);
-			view.setModel(new CancelMedicalAppointmentModel(aMedicalAppointment));
+			view.setModel(new ReserveMedicalAppointmentModel(aMedicalAppointment, aMedicalAppointment.getMedicalOffice().getCaregivings()));
 			view.enter();
 		}
 

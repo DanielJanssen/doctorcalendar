@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.user.findmedicalappointment;
+package de.th_koeln.doctorcalendar.gui.user.medicalappointment.find;
 
 import java.sql.Time;
 import java.util.List;

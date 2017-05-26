@@ -18,7 +18,7 @@ import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment_;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice_;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
-import de.th_koeln.doctorcalendar.gui.user.findmedicalappointment.FindMedicalAppointmentSearchParameter;
+import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentSearchParameter;
 
 public class MedicalAppointmentSpecification implements Specification<MedicalAppointment> {
 
