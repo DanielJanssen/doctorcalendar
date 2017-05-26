@@ -1,6 +1,7 @@
 package de.th_koeln.doctorcalendar.application.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -190,6 +191,7 @@ public class MedicalAppointment implements Serializable {
 	}
 
 	public String getFormattedTime() {
-		return timeFrom + " - " + timeTo;
+		SimpleDateFormat tempSimpleDateFormat = new SimpleDateFormat("HH:mm");
+		return tempSimpleDateFormat.format(timeFrom) + " - " + tempSimpleDateFormat.format(timeTo);
 	}
 }

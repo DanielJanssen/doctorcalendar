@@ -71,6 +71,22 @@ public class NextMedicalAppointmentController {
 		};
 	}
 
+	public ClickListener getMedicalOfficeDetailsClickListener() {
+		return new ClickListener() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent aEvent) {
+				if (getModel().getSelectedMedicalAppointment() == null) {
+					Notification.show("Bitte wähle zuerst einen Arzt aus");
+					return;
+				}
+				Notification.show("Diese Funktion wurde noch nicht implementiert.");
+			}
+		};
+	}
+
 	public NextMedicalAppointmentView getView() {
 		return view;
 	}

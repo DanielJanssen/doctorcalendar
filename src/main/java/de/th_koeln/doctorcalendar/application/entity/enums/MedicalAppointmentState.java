@@ -16,4 +16,9 @@ public enum MedicalAppointmentState {
 	public String getGermanDescription() {
 		return germanDescription;
 	}
+
+	@Override
+	public String toString() {
+		return getGermanDescription();
+	}
 }

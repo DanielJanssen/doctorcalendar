@@ -15,4 +15,9 @@ public enum Speciality {
 	public String getGermanDescription() {
 		return germanDescription;
 	}
+
+	@Override
+	public String toString() {
+		return getGermanDescription();
+	}
 }

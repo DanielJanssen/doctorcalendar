@@ -10,6 +10,9 @@ import com.vaadin.event.SelectionEvent;
 import com.vaadin.event.SelectionEvent.SelectionListener;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
@@ -44,6 +47,38 @@ public class PastMedicalAppointmentController {
 				} else {
 					getModel().setSelectedMedicalAppointment(null);
 				}
+			}
+		};
+	}
+
+	public ClickListener getNewMedicalAppointmentClickListener() {
+		return new ClickListener() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent aEvent) {
+				if (getModel().getSelectedMedicalAppointment() == null) {
+					Notification.show("Bitte wähle zuerst einen Arzt aus");
+					return;
+				}
+				Notification.show("Diese Funktion wurde noch nicht implementiert.");
+			}
+		};
+	}
+
+	public ClickListener getMedicalOfficeDetailsClickListener() {
+		return new ClickListener() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent aEvent) {
+				if (getModel().getSelectedMedicalAppointment() == null) {
+					Notification.show("Bitte wähle zuerst einen Arzt aus");
+					return;
+				}
+				Notification.show("Diese Funktion wurde noch nicht implementiert.");
 			}
 		};
 	}
