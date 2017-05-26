@@ -87,25 +87,44 @@ public class FindMedicalAppointmentController {
 
 	}
 
+	public ClickListener getEmailClickListener() {
+		return new ClickListener() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void buttonClick(ClickEvent aEvent) {
+				Notification.show("Diese Funktion wurde noch nicht implementiert.");
+			}
+		};
+	}
+
 	public ClickListener getDurationClickListener() {
 		return new ClickListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
-				//TODO OpenDurationDialog
+				if (getModel().getSelectedMedicalAppointment() == null) {
+					Notification.show("Bitte wähle zuerst einen Arzt aus");
+					return;
+				}
+				Notification.show("Diese Funktion wurde noch nicht implementiert.");
 			}
 		};
 
 	}
 
-	public ClickListener getDetailsClickListener() {
+	public ClickListener getMedicalOfficeDetailsClickListener() {
 		return new ClickListener() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
-				//TODO OpenDetailsDialog
+				if (getModel().getSelectedMedicalAppointment() == null) {
+					Notification.show("Bitte wähle zuerst einen Arzt aus");
+					return;
+				}
+				Notification.show("Diese Funktion wurde noch nicht implementiert.");
 			}
 		};
 	}

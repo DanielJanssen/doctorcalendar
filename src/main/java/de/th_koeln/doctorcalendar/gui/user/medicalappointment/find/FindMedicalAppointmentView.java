@@ -75,6 +75,7 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 	private HorizontalLayout getSearchCriteria() {
 		HorizontalLayout horizontalLayout = new HorizontalLayout();
 		medicalOfficeNameField = new TextField("Praxisname", model.getSearchParameter().getMedicalOfficeName());
+		medicalOfficeNameField.setNullRepresentation("");
 		horizontalLayout.addComponent(medicalOfficeNameField);
 
 		dateFrom = new DateField("Termin (von)", model.getSearchParameter().getMedicalAppointmentDateFrom());
@@ -102,6 +103,7 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 
 		maximumDistance = new TextField("Maximale Entfernung (km)");
 		maximumDistance.setPropertyDataSource(new ObjectProperty<Integer>(model.getSearchParameter().getMaximumDistanceInKm(), Integer.class));
+		maximumDistance.setNullRepresentation("");
 		horizontalLayout.addComponent(maximumDistance);
 
 		horizontalLayout.setSpacing(true);
@@ -116,8 +118,13 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		resetButton.addClickListener(controller.getResetClickListener());
 		horizontalLayout.addComponent(resetButton);
 
+		Button emailButton = new Button("E-Mail bei Suchtreffer");
+		emailButton.addClickListener(controller.getEmailClickListener());
+		horizontalLayout.addComponent(emailButton);
+
 		Button searchButton = new Button("Suche");
 		searchButton.addClickListener(controller.getSearchClickListener());
+
 		horizontalLayout.addComponent(searchButton);
 		horizontalLayout.setSpacing(true);
 		return horizontalLayout;
@@ -144,7 +151,7 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		horizontalLayout.addComponent(durationsButton);
 
 		Button detailButton = new Button("Arztdetails");
-		detailButton.addClickListener(controller.getDetailsClickListener());
+		detailButton.addClickListener(controller.getMedicalOfficeDetailsClickListener());
 		horizontalLayout.addComponent(detailButton);
 
 		Button reserveButton = new Button("Termin reservieren");
