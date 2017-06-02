@@ -16,6 +16,8 @@ import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment_;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice_;
+import de.th_koeln.doctorcalendar.application.entity.User;
+import de.th_koeln.doctorcalendar.application.entity.User_;
 
 public class MedicalAppointmentSpecification implements Specification<MedicalAppointment> {
 
@@ -29,14 +31,15 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 	@Override
 	public Predicate toPredicate(Root<MedicalAppointment> aRoot, CriteriaQuery<?> aQuery, CriteriaBuilder aConditions) {
 		List<Predicate> predicates = new ArrayList<>();
-		Join<MedicalAppointment, MedicalOffice> join = aRoot.join(MedicalAppointment_.medicalOffice);
-		addMedicalOfficeName(aConditions, predicates, join);
+		Join<MedicalAppointment, MedicalOffice> medicalOfficeJoin = aRoot.join(MedicalAppointment_.medicalOffice);
+
+		addMedicalOfficeName(aConditions, predicates, medicalOfficeJoin);
 		addDateFromTo(aRoot, aConditions, predicates);
 		addTimeFromTo(aRoot, aConditions, predicates);
-		addSpeciality(aConditions, predicates, join);
+		addSpeciality(aConditions, predicates, medicalOfficeJoin);
 		addMaximumDistance();
 		addState(aRoot, aConditions, predicates);
-		//TODO patientenname
+		addPatientName(aRoot, aConditions, predicates);
 
 		return andTogether(predicates, aConditions);
 	}
@@ -91,7 +94,13 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 		if (searchParameter.getState() != null) {
 			predicates.add(aConditions.equal(aRoot.get(MedicalAppointment_.state), searchParameter.getState()));
 		}
+	}
 
+	private void addPatientName(Root<MedicalAppointment> aRoot, CriteriaBuilder aConditions, List<Predicate> predicates) {
+		if (searchParameter.getPatientName() != null && searchParameter.getPatientName() != "") {
+			Join<MedicalAppointment, User> userJoin = aRoot.join(MedicalAppointment_.user);
+			predicates.add(aConditions.like(aConditions.lower(userJoin.get(User_.surName)), "%" + searchParameter.getPatientName() + "%"));
+		}
 	}
 
 	private Predicate andTogether(List<Predicate> predicates, CriteriaBuilder cb) {
