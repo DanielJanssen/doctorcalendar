@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.spring.annotation.SpringComponent;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.application.entity.User;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
+import de.th_koeln.doctorcalendar.gui.doctor.find.FindDoctorSearchParameter;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentSearchParameter;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentSpecification;
+import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentSpecificationParameter;
 import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 
 @SpringComponent
@@ -51,7 +54,15 @@ public class MedicalAppointmentService {
 	}
 
 	public List<MedicalAppointment> findMedicalAppointment(FindMedicalAppointmentSearchParameter aSearchParameter) {
-		MedicalAppointmentSpecification specification = new MedicalAppointmentSpecification(aSearchParameter);
+		MedicalAppointmentSpecification specification = new MedicalAppointmentSpecification(new MedicalAppointmentSpecificationParameter(aSearchParameter));
+		List<MedicalAppointment> medicalAppointments = repository.findAll(specification);
+		return medicalAppointments;
+	}
+
+	public List<MedicalAppointment> findMedicalAppointment(FindDoctorSearchParameter aSearchParameter, String aUserName) {
+		User user = userRepository.findByLoginName(aUserName);
+		MedicalAppointmentSpecification specification = new MedicalAppointmentSpecification(
+				new MedicalAppointmentSpecificationParameter(aSearchParameter, user.getWorkingMedicalOffice()));
 		List<MedicalAppointment> medicalAppointments = repository.findAll(specification);
 		return medicalAppointments;
 	}

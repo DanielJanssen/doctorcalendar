@@ -1,6 +1,7 @@
 package de.th_koeln.doctorcalendar.gui.doctor.find;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -78,10 +79,9 @@ public class FindDoctorController {
 			@Override
 			public void buttonClick(ClickEvent aEvent) {
 				getView().setSearchParameterToModel();
-				// TODO rt57, 02.06.2017:
-				//				List<MedicalAppointment> foundMedicalAppointments = service.findMedicalAppointment(getModel().getSearchParameter());
-				//				getModel().setMedicalAppointments(foundMedicalAppointments);
-				//				getView().setItemsBeanItemContainer(foundMedicalAppointments);
+				List<MedicalAppointment> foundMedicalAppointments = service.findMedicalAppointment(getModel().getSearchParameter(), getView().getUserName());
+				getModel().setMedicalAppointments(foundMedicalAppointments);
+				getView().setItemsBeanItemContainer(foundMedicalAppointments);
 			}
 		};
 

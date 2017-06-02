@@ -2,7 +2,6 @@ package de.th_koeln.doctorcalendar.persistence.repository;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,14 +16,12 @@ import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment_;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice_;
-import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
-import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentSearchParameter;
 
 public class MedicalAppointmentSpecification implements Specification<MedicalAppointment> {
 
-	private final FindMedicalAppointmentSearchParameter searchParameter;
+	private final MedicalAppointmentSpecificationParameter searchParameter;
 
-	public MedicalAppointmentSpecification(FindMedicalAppointmentSearchParameter aSearchParameter) {
+	public MedicalAppointmentSpecification(MedicalAppointmentSpecificationParameter aSearchParameter) {
 		super();
 		searchParameter = aSearchParameter;
 	}
@@ -38,7 +35,8 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 		addTimeFromTo(aRoot, aConditions, predicates);
 		addSpeciality(aConditions, predicates, join);
 		addMaximumDistance();
-		addFreeFutureMedicalAppointments(aRoot, aConditions, predicates);
+		addState(aRoot, aConditions, predicates);
+		//TODO patientenname
 
 		return andTogether(predicates, aConditions);
 	}
@@ -89,9 +87,10 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 		}
 	}
 
-	private void addFreeFutureMedicalAppointments(Root<MedicalAppointment> aRoot, CriteriaBuilder aConditions, List<Predicate> predicates) {
-		predicates.add(aConditions.equal(aRoot.get(MedicalAppointment_.state), MedicalAppointmentState.FREE));
-		predicates.add(aConditions.greaterThanOrEqualTo(aRoot.get(MedicalAppointment_.date), new Date()));
+	private void addState(Root<MedicalAppointment> aRoot, CriteriaBuilder aConditions, List<Predicate> predicates) {
+		if (searchParameter.getState() != null) {
+			predicates.add(aConditions.equal(aRoot.get(MedicalAppointment_.state), searchParameter.getState()));
+		}
 
 	}
 

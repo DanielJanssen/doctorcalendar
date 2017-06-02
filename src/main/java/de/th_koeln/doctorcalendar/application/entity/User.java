@@ -192,6 +192,11 @@ public class User implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return getFullname();
+	}
+
 	public String getFullname() {
 		return firstName + " " + surName;
 	}

@@ -127,8 +127,8 @@ public class FindDoctorView extends VerticalLayout implements View {
 		grid.removeAllColumns();
 		grid.addColumn("date").setHeaderCaption("Datum");
 		grid.addColumn("formattedTime").setHeaderCaption("Uhrzeit");
-		grid.addColumn("user.fullname").setHeaderCaption("Patient");
-		grid.addColumn("caregiving").setHeaderCaption("Grund");
+		grid.addColumn("user").setHeaderCaption("Patient");
+		grid.addColumn("careGiving").setHeaderCaption("Grund");
 		grid.addColumn("state").setHeaderCaption("Status");
 
 		grid.setSelectionMode(SelectionMode.SINGLE);
@@ -171,6 +171,10 @@ public class FindDoctorView extends VerticalLayout implements View {
 
 	public void setModel(FindDoctorModel aModel) {
 		model = aModel;
+	}
+
+	public String getUserName() {
+		return getSession().getAttribute("user").toString();
 	}
 
 	public void setController(FindDoctorController aController) {

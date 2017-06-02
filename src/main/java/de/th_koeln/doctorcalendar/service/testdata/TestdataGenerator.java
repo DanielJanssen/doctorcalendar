@@ -43,6 +43,7 @@ public class TestdataGenerator {
 		thirdMedicalOffice = medicalOfficeRepository.save(getThirdMedicalOffice());
 
 		userRepository.save(getFirstUser());
+		userRepository.save(getSecondUser());
 
 		medicalAppointmentRepository.save(getFreeMedicalAppointments());
 		//freie Termine
@@ -110,6 +111,13 @@ public class TestdataGenerator {
 		freeMedicalAppointments.add(new MedicalAppointment(getDate(3), getTimeAt(8, 40), getTimeAt(9, 0), MedicalAppointmentState.FREE, thirdMedicalOffice));
 		freeMedicalAppointments.add(new MedicalAppointment(getDate(3), getTimeAt(9, 0), getTimeAt(9, 20), MedicalAppointmentState.FREE, thirdMedicalOffice));
 		return freeMedicalAppointments;
+	}
+
+	private User getSecondUser() {
+		User user = new User("Susi", "Susanne", "Meier", "meier@gmail.com", "Susi", new PhoneNumber("01520", "1722405"),
+				new Address("Poststraße", "46", 40233, "Düsseldorf"));
+		user.setWorkingMedicalOffice(firstMedicalOffice);
+		return user;
 	}
 
 	private Date getDate(Integer aDateChangeInDays) {

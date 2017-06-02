@@ -8,5 +8,5 @@
 6) Zeile 25 wieder auskommentieren ("//" wieder davor schreiben)
 7) Applikation wieder starten wie eben oder über Strg+F11 (Tastenkürzel für das erneute Ausführen des letzten Starts)
 8) Über den Browser http://localhost:8080 aufrufen
-9) Benutzername "PeterMueller", Passwort ebenso
+9) Benutzername "PeterMueller", Passwort ebenso als Patient; "Susi", "Susi" als Mitarbeiterin einer Arztpraxis
 10) Ausprobieren... Wenn die Daten kaputt / verbraucht sind könnt ihr die Datenbank über MySQL droppen und dann wie oben beschrieben neu aufsetzen
