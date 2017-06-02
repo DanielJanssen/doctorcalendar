@@ -12,6 +12,8 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
 
+import de.th_koeln.doctorcalendar.gui.doctor.find.FindDoctorController;
+import de.th_koeln.doctorcalendar.gui.doctor.find.FindDoctorView;
 import de.th_koeln.doctorcalendar.gui.login.LoginView;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentController;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentView;
@@ -39,6 +41,9 @@ public class CalendarUi extends UI {
 	FindMedicalAppointmentController findMedicalAppointmentController;
 
 	@Autowired
+	FindDoctorController findDoctorController;
+
+	@Autowired
 	private SpringViewProvider viewProvider;
 
 	private Navigator navigator;
@@ -52,6 +57,7 @@ public class CalendarUi extends UI {
 		navigator.addView(NextMedicalAppointmentView.VIEW_NAME, nextMedicalAppointmentController.getView());
 		navigator.addView(PastMedicalAppointmentView.VIEW_NAME, pastMedicalApointmentController.getView());
 		navigator.addView(FindMedicalAppointmentView.VIEW_NAME, findMedicalAppointmentController.getView());
+		navigator.addView(FindDoctorView.VIEW_NAME, findDoctorController.getView());
 		navigator.addProvider(viewProvider);
 		navigator.addViewChangeListener(createViewChangeListener());
 	}

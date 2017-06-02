@@ -9,6 +9,7 @@ import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
+import de.th_koeln.doctorcalendar.gui.doctor.find.FindDoctorView;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.find.FindMedicalAppointmentView;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.next.NextMedicalAppointmentView;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.past.PastMedicalAppointmentView;
@@ -27,6 +28,10 @@ public class NavigationComponent extends HorizontalLayout {
 		medicalAppointment.addItem(NextMedicalAppointmentView.VIEW_NAME, navigation);
 		medicalAppointment.addItem(PastMedicalAppointmentView.VIEW_NAME, navigation);
 		medicalAppointment.addItem(FindMedicalAppointmentView.VIEW_NAME, navigation);
+
+		MenuItem medicalOfficeView = menuBar.addItem("Terminübersicht", null);
+		medicalOfficeView.addItem(FindDoctorView.VIEW_NAME, navigation);
+
 	}
 
 	private Command getMenuBarCommand() {
