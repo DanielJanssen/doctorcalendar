@@ -10,6 +10,7 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.service.email.MailSender;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
@@ -20,6 +21,9 @@ public class ReverseMedicalAppointmentController {
 
 	@Autowired
 	MedicalAppointmentService service;
+
+	@Autowired
+	MailSender mailSender;
 
 	protected ClickListener getCancelCloseListener() {
 		return new ClickListener() {
@@ -43,8 +47,8 @@ public class ReverseMedicalAppointmentController {
 					Notification.show("Bitte geben Sie einen Grund für die Absage für den Patienten an.");
 					return;
 				}
+				mailSender.sendReverseMail(view.getModel().getMedicalAppointment());
 				service.setMedicalAppointmentToFree(view.getModel().getMedicalAppointment());
-				// TODO rt57, 06.06.2017:  mail
 				view.close(); // Close the sub-window
 			}
 		};
