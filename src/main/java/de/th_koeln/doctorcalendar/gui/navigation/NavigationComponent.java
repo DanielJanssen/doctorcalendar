@@ -20,6 +20,7 @@ public class NavigationComponent extends HorizontalLayout {
 
 	private static final long serialVersionUID = 1L;
 
+	// TODO rt57, 02.06.2017: define visibility for patient/medical office
 	public NavigationComponent() {
 		MenuBar menuBar = new MenuBar();
 		addComponent(menuBar);

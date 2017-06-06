@@ -1,6 +1,7 @@
 package de.th_koeln.doctorcalendar.gui.doctor.find;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +17,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
-import de.th_koeln.doctorcalendar.gui.user.medicalappointment.reserve.ReserveMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.doctor.find.cancel.ReverseMedicalAppointmentController;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
@@ -30,7 +31,7 @@ public class FindDoctorController {
 	MedicalAppointmentService service;
 
 	@Autowired
-	ReserveMedicalAppointmentController reserveMedicalAppointmentController;
+	ReverseMedicalAppointmentController reverseeMedicalAppointmentController;
 
 	@PostConstruct
 	public void init() {
@@ -97,7 +98,15 @@ public class FindDoctorController {
 					Notification.show("Bitte wähle zuerst einen Termin aus");
 					return;
 				}
-				Notification.show("Diese Funktion wurde noch nicht implementiert.");
+				if (getModel().getSelectedMedicalAppointment().getUser() == null) {
+					Notification.show("Der Termin muss bereits einem Patienten zugeordnet sein, um ihm absagen zu können");
+					return;
+				}
+				if (getModel().getSelectedMedicalAppointment().getDate().before(new Date())) {
+					Notification.show("Der Termin hat bereits stattgefunden und kann nicht mehr abgesagt werden");
+					return;
+				}
+				reverseeMedicalAppointmentController.initView(getModel().getSelectedMedicalAppointment());
 			}
 		};
 	}
