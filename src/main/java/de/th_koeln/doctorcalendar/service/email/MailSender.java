@@ -33,13 +33,13 @@ public class MailSender {
 	}
 
 	private void send(SimpleMailMessage aMail) {
-		mailSender.send(aMail);
+		//mocking for prototyp, because local no mail server is available
+		System.out.println(aMail.toString());
+		//		mailSender.send(aMail);
 	}
 
 	private String getMailAdress(User aUser) {
-		//		return aUser.getEmail();
-		//for test purposes
-		return "janssen_daniel@web.de";
+		return aUser.getEmail();
 	}
 
 }
