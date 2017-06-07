@@ -6,17 +6,29 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import com.vaadin.spring.annotation.SpringComponent;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.application.entity.User;
 
 @SpringComponent
 public class MailSender {
 
 	private org.springframework.mail.MailSender mailSender = new JavaMailSenderImpl();
 
-	public void sendReverseMail(MedicalAppointment aMedicalAppointment) {
+	public void sendReverseMail(MedicalAppointment aMedicalAppointment, String aReverseReason) {
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setTo("janssen_daniel@web.de");
+		mail.setTo(getMailAdress(aMedicalAppointment.getUser()));
 		mail.setSubject("Ärztekalender: Dein Termin wurde vom Arzt gecancelt");
-		mail.setText("Test");
+		mail.setText("Hallo " + aMedicalAppointment.getUser().getFullname() + " dein Termin vom " + aMedicalAppointment.getDate() + " um "
+				+ aMedicalAppointment.getFormattedTime() + "beim Arzt " + aMedicalAppointment.getMedicalOffice() + " wurde mit folgendem Grund abgesagt: "
+				+ aReverseReason);
+		send(mail);
+	}
+
+	public void sendAcceptedMail(MedicalAppointment aMedicalAppointment) {
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setTo(getMailAdress(aMedicalAppointment.getUser()));
+		mail.setSubject("Ärztekalender: Dein Termin wurde vom Arzt bestätigt");
+		mail.setText("Hallo " + aMedicalAppointment.getUser().getFullname() + " dein Termin vom " + aMedicalAppointment.getDate() + " um "
+				+ aMedicalAppointment.getFormattedTime() + "beim Arzt " + aMedicalAppointment.getMedicalOffice() + " wurde bestätigt");
 		send(mail);
 	}
 
@@ -24,9 +36,10 @@ public class MailSender {
 		mailSender.send(aMail);
 	}
 
-	public void sendAcceptedMail(MedicalAppointment aMedicalAppointment) {
-		// TODO rt57, 07.06.2017: hier noch richtige mail
-		sendReverseMail(aMedicalAppointment);
+	private String getMailAdress(User aUser) {
+		//		return aUser.getEmail();
+		//for test purposes
+		return "janssen_daniel@web.de";
 	}
 
 }

@@ -47,7 +47,7 @@ public class ReverseMedicalAppointmentController {
 					Notification.show("Bitte geben Sie einen Grund für die Absage für den Patienten an.");
 					return;
 				}
-				mailSender.sendReverseMail(view.getModel().getMedicalAppointment());
+				mailSender.sendReverseMail(view.getModel().getMedicalAppointment(), view.getModel().getReasonOfReserve());
 				service.setMedicalAppointmentToFree(view.getModel().getMedicalAppointment());
 				view.close(); // Close the sub-window
 			}
