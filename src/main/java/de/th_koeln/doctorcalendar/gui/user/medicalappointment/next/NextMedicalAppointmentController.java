@@ -15,21 +15,18 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
-import de.th_koeln.doctorcalendar.application.entity.User;
+import de.th_koeln.doctorcalendar.gui.main.AbstractController;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.cancel.CancelMedicalAppointmentController;
-import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
 @VaadinSessionScope
-public class NextMedicalAppointmentController {
+public class NextMedicalAppointmentController extends AbstractController {
 
 	@Autowired
 	private MedicalAppointmentService medicalAppointmentService;
 	@Autowired
 	private NextMedicalAppointmentView view;
-	@Autowired
-	UserRepository userRepository;
 
 	@Autowired
 	CancelMedicalAppointmentController cancelMedicalAppointmentController;
@@ -91,6 +88,7 @@ public class NextMedicalAppointmentController {
 		};
 	}
 
+	@Override
 	public NextMedicalAppointmentView getView() {
 		return view;
 	}
@@ -98,9 +96,4 @@ public class NextMedicalAppointmentController {
 	public NextMedicalAppointmentModel getModel() {
 		return getView().getModel();
 	}
-
-	public User getLoginUser() {
-		return userRepository.findByLoginName(getView().getUserName());
-	}
-
 }

@@ -4,7 +4,6 @@ import java.sql.Time;
 import java.util.List;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -23,11 +22,12 @@ import com.vaadin.ui.VerticalLayout;
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.gui.StringToDateConverter;
+import de.th_koeln.doctorcalendar.gui.main.AbstractView;
 import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
 @SpringComponent
 @VaadinSessionScope
-public class FindDoctorView extends VerticalLayout implements View {
+public class FindDoctorView extends AbstractView {
 
 	private static final String DATE_FORMAT = "dd.MM.yyyy";
 	private static final long serialVersionUID = 1L;
@@ -171,10 +171,6 @@ public class FindDoctorView extends VerticalLayout implements View {
 
 	public void setModel(FindDoctorModel aModel) {
 		model = aModel;
-	}
-
-	public String getUserName() {
-		return getSession().getAttribute("user").toString();
 	}
 
 	public void setController(FindDoctorController aController) {

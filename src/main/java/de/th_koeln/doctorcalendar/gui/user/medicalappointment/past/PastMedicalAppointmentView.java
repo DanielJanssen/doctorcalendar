@@ -1,7 +1,6 @@
 package de.th_koeln.doctorcalendar.gui.user.medicalappointment.past;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
@@ -9,15 +8,15 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.VerticalLayout;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.gui.StringToDateConverter;
+import de.th_koeln.doctorcalendar.gui.main.AbstractView;
 import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
 @SpringComponent
 @VaadinSessionScope
-public class PastMedicalAppointmentView extends VerticalLayout implements View {
+public class PastMedicalAppointmentView extends AbstractView {
 
 	private static final long serialVersionUID = 1L;
 
@@ -90,9 +89,4 @@ public class PastMedicalAppointmentView extends VerticalLayout implements View {
 	public void setController(PastMedicalAppointmentController aController) {
 		controller = aController;
 	}
-
-	public String getUserName() {
-		return getSession().getAttribute("user").toString();
-	}
-
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.ObjectProperty;
-import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -24,11 +23,12 @@ import com.vaadin.ui.VerticalLayout;
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
 import de.th_koeln.doctorcalendar.gui.StringToDateConverter;
+import de.th_koeln.doctorcalendar.gui.main.AbstractView;
 import de.th_koeln.doctorcalendar.gui.navigation.NavigationComponent;
 
 @SpringComponent
 @VaadinSessionScope
-public class FindMedicalAppointmentView extends VerticalLayout implements View {
+public class FindMedicalAppointmentView extends AbstractView {
 
 	private static final String DATE_FORMAT = "dd.MM.yyyy";
 	private static final long serialVersionUID = 1L;
@@ -178,10 +178,6 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 		controller = aController;
 	}
 
-	public String getUserName() {
-		return getSession().getAttribute("user").toString();
-	}
-
 	public void setItemsBeanItemContainer(List<MedicalAppointment> aMedicalAppointmentList) {
 		container.removeAllItems();
 		container.addAll(aMedicalAppointmentList);
@@ -203,5 +199,4 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 			searchParameter.setMaximumDistanceInKm(Integer.valueOf(maximumDistance.getValue()));
 		}
 	}
-
 }
