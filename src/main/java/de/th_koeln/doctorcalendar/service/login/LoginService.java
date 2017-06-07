@@ -1,6 +1,5 @@
 package de.th_koeln.doctorcalendar.service.login;
 
-import org.hibernate.sql.ordering.antlr.GeneratedOrderByFragmentRendererTokenTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.spring.annotation.SpringComponent;
@@ -20,5 +19,9 @@ public class LoginService {
 			return user.getPassword().equals(aPassword);
 		}
 		return false;
+	}
+
+	public User getUser(String anUsername) {
+		return userRepository.findByLoginName(anUsername);
 	}
 }

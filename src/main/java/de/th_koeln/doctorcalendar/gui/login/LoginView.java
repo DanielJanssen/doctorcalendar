@@ -15,6 +15,7 @@ import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.th_koeln.doctorcalendar.gui.doctor.find.FindDoctorView;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.next.NextMedicalAppointmentView;
 import de.th_koeln.doctorcalendar.service.login.LoginService;
 
@@ -60,9 +61,14 @@ public class LoginView extends VerticalLayout implements View {
 
 			@Override
 			public void buttonClick(Button.ClickEvent event) {
-				if (loginService.isCorrectLoginData(userName.getValue(), password.getValue())) {
-					getSession().setAttribute("user", userName.getValue());
-					getUI().getNavigator().navigateTo(NextMedicalAppointmentView.VIEW_NAME);
+				String username = userName.getValue();
+				if (loginService.isCorrectLoginData(username, password.getValue())) {
+					getSession().setAttribute("user", username);
+					if (loginService.getUser(username).getWorkingMedicalOffice() == null) {
+						getUI().getNavigator().navigateTo(NextMedicalAppointmentView.VIEW_NAME);
+					} else {
+						getUI().getNavigator().navigateTo(FindDoctorView.VIEW_NAME);
+					}
 				} else {
 					Notification.show("Du konntest dich leider nicht einloggen. Bitte überprüfe das Passwort und den Benutzernamen");
 				}
