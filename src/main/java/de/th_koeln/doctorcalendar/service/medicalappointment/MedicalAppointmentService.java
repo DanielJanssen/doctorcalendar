@@ -67,4 +67,9 @@ public class MedicalAppointmentService {
 		return medicalAppointments;
 	}
 
+	public void setMedicalAppointmentToAccepted(MedicalAppointment aMedicalAppointment) {
+		aMedicalAppointment.setState(MedicalAppointmentState.ACCEPTED);
+		repository.save(aMedicalAppointment);
+	}
+
 }

@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.doctor.find.cancel;
+package de.th_koeln.doctorcalendar.gui.doctor.cancel;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 

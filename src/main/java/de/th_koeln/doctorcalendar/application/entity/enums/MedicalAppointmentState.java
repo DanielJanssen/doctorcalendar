@@ -21,4 +21,8 @@ public enum MedicalAppointmentState {
 	public String toString() {
 		return getGermanDescription();
 	}
+
+	public Boolean isReserved() {
+		return this == RESERVED;
+	}
 }

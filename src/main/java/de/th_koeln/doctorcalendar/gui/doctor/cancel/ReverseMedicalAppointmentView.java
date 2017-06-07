@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.doctor.find.cancel;
+package de.th_koeln.doctorcalendar.gui.doctor.cancel;
 
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
@@ -34,8 +34,8 @@ public class ReverseMedicalAppointmentView extends Window {
 		VerticalLayout content = new VerticalLayout();
 		content.addComponent(getHeaderCaption());
 		content.addComponent(getDateLayout());
-		content.addComponent(getMedicalOffice());
-		content.addComponent(getSpeciality());
+		content.addComponent(getPatient());
+		content.addComponent(getCaregiving());
 		content.addComponent(getMedicalAppointmentDescription());
 		content.addComponent(getReasonForCancel());
 		content.addComponent(new Label("Der Patient wird über die Absage per Mail informiert"));
@@ -64,17 +64,17 @@ public class ReverseMedicalAppointmentView extends Window {
 		return dateLayout;
 	}
 
-	private TextField getMedicalOffice() {
-		TextField textField = new TextField("Arztpraxis");
-		textField.setValue(model.getMedicalAppointment().getMedicalOffice().toString());
+	private TextField getPatient() {
+		TextField textField = new TextField("Patient");
+		textField.setValue(model.getMedicalAppointment().getUser().toString());
 		textField.setEnabled(false);
 		textField.setWidth("100%");
 		return textField;
 	}
 
-	private TextField getSpeciality() {
-		TextField textField = new TextField("Fachrichtung");
-		textField.setValue(model.getMedicalAppointment().getMedicalOffice().getSpeciality().getGermanDescription());
+	private TextField getCaregiving() {
+		TextField textField = new TextField("Behandlungsart");
+		textField.setValue(model.getMedicalAppointment().getCareGiving().getName());
 		textField.setEnabled(false);
 		textField.setWidth("100%");
 		return textField;

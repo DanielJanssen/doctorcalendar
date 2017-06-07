@@ -1,6 +1,5 @@
 package de.th_koeln.doctorcalendar.service.email;
 
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -22,12 +21,12 @@ public class MailSender {
 	}
 
 	private void send(SimpleMailMessage aMail) {
-		try {
-			mailSender.send(aMail);
-		} catch (MailException ex) {
-			// simply log it and go on...
-			System.err.println(ex.getMessage());
-		}
+		mailSender.send(aMail);
+	}
+
+	public void sendAcceptedMail(MedicalAppointment aMedicalAppointment) {
+		// TODO rt57, 07.06.2017: hier noch richtige mail
+		sendReverseMail(aMedicalAppointment);
 	}
 
 }

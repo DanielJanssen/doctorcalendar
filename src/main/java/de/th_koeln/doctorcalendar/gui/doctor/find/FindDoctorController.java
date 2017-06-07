@@ -17,7 +17,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
-import de.th_koeln.doctorcalendar.gui.doctor.find.cancel.ReverseMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.doctor.cancel.ReverseMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.gui.doctor.confirm.ConfirmMedicalAppointmentController;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
@@ -32,6 +33,9 @@ public class FindDoctorController {
 
 	@Autowired
 	ReverseMedicalAppointmentController reverseeMedicalAppointmentController;
+
+	@Autowired
+	ConfirmMedicalAppointmentController confirmMedicalAppointmentController;
 
 	@PostConstruct
 	public void init() {
@@ -162,7 +166,19 @@ public class FindDoctorController {
 					Notification.show("Bitte wähle zuerst einen Termin aus");
 					return;
 				}
-				Notification.show("Diese Funktion wurde noch nicht implementiert.");
+				if (getModel().getSelectedMedicalAppointment().getUser() == null) {
+					Notification.show("Der Termin muss bereits einem Patienten zugeordnet sein, um ihn bestätigen zu können");
+					return;
+				}
+				if (getModel().getSelectedMedicalAppointment().getDate().before(new Date())) {
+					Notification.show("Der Termin liegt in der Vergangenheit und kann nicht mehr bestätigt werden");
+					return;
+				}
+				if (!getModel().getSelectedMedicalAppointment().getState().isReserved()) {
+					Notification.show("Der Termin ist bereits bestätigt");
+					return;
+				}
+				confirmMedicalAppointmentController.initView(getModel().getSelectedMedicalAppointment());
 			}
 		};
 	}

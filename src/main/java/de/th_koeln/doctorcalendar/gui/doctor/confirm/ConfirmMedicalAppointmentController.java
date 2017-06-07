@@ -1,4 +1,4 @@
-package de.th_koeln.doctorcalendar.gui.doctor.find.cancel;
+package de.th_koeln.doctorcalendar.gui.doctor.confirm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -6,7 +6,6 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
@@ -15,9 +14,9 @@ import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentS
 
 @SpringComponent
 @VaadinSessionScope
-public class ReverseMedicalAppointmentController {
+public class ConfirmMedicalAppointmentController {
 
-	ReverseMedicalAppointmentView view;
+	ConfirmMedicalAppointmentView view;
 
 	@Autowired
 	MedicalAppointmentService service;
@@ -42,13 +41,8 @@ public class ReverseMedicalAppointmentController {
 
 			@Override
 			public void buttonClick(@SuppressWarnings("unused") ClickEvent event) {
-				view.setUserInput();
-				if (view.getModel().getReasonOfReserve() == null || view.getModel().getReasonOfReserve() == "") {
-					Notification.show("Bitte geben Sie einen Grund für die Absage für den Patienten an.");
-					return;
-				}
-				mailSender.sendReverseMail(view.getModel().getMedicalAppointment());
-				service.setMedicalAppointmentToFree(view.getModel().getMedicalAppointment());
+				mailSender.sendAcceptedMail(view.getModel().getMedicalAppointment());
+				service.setMedicalAppointmentToAccepted(view.getModel().getMedicalAppointment());
 				view.close(); // Close the sub-window
 			}
 		};
@@ -56,9 +50,9 @@ public class ReverseMedicalAppointmentController {
 
 	public void initView(MedicalAppointment aMedicalAppointment) {
 		if (view == null) {
-			view = new ReverseMedicalAppointmentView();
+			view = new ConfirmMedicalAppointmentView();
 			view.setController(this);
-			view.setModel(new ReverseMedicalAppointmentModel(aMedicalAppointment));
+			view.setModel(new ConfirmMedicalAppointmentModel(aMedicalAppointment));
 			view.enter();
 		}
 
