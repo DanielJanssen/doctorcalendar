@@ -16,7 +16,9 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.application.entity.User;
 import de.th_koeln.doctorcalendar.gui.user.medicalappointment.reserve.ReserveMedicalAppointmentController;
+import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
@@ -31,6 +33,9 @@ public class FindMedicalAppointmentController {
 
 	@Autowired
 	ReserveMedicalAppointmentController reserveMedicalAppointmentController;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@PostConstruct
 	public void init() {
@@ -142,5 +147,9 @@ public class FindMedicalAppointmentController {
 				reserveMedicalAppointmentController.initView(getModel().getSelectedMedicalAppointment());
 			}
 		};
+	}
+
+	public User getLoginUser() {
+		return userRepository.findByLoginName(getView().getUserName());
 	}
 }

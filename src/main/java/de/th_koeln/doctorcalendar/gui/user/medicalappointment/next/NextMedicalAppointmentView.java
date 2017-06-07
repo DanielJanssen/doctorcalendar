@@ -33,7 +33,7 @@ public class NextMedicalAppointmentView extends VerticalLayout implements View {
 	}
 
 	private void addAllComponents() {
-		addComponent(new NavigationComponent());
+		addComponent(new NavigationComponent(controller.getLoginUser()));
 		BeanItemContainer<MedicalAppointment> container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
 		addComponent(getGrid(container));

@@ -50,7 +50,7 @@ public class FindDoctorView extends VerticalLayout implements View {
 	}
 
 	private void addAllComponents() {
-		addComponent(new NavigationComponent());
+		addComponent(new NavigationComponent(controller.getLoginUser()));
 		addComponent(getSearchPanel());
 		container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");

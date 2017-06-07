@@ -15,6 +15,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Notification;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.application.entity.User;
+import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 import de.th_koeln.doctorcalendar.service.medicalappointment.MedicalAppointmentService;
 
 @SpringComponent
@@ -26,6 +28,9 @@ public class PastMedicalAppointmentController {
 
 	@Autowired
 	PastMedicalAppointmentView view;
+
+	@Autowired
+	UserRepository userRepository;
 
 	public PastMedicalAppointmentView getView() {
 		return view;
@@ -90,6 +95,10 @@ public class PastMedicalAppointmentController {
 	public void findPastMedicalAppointments() {
 		List<MedicalAppointment> medicalAppointments = service.getPastMedicalAppointment(view.getUserName());
 		view.setModel(new PastMedicalAppointmentModel(medicalAppointments));
+	}
+
+	public User getLoginUser() {
+		return userRepository.findByLoginName(getView().getUserName());
 	}
 
 }

@@ -52,7 +52,7 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 	}
 
 	private void addAllComponents() {
-		addComponent(new NavigationComponent());
+		addComponent(new NavigationComponent(controller.getLoginUser()));
 		addComponent(getSearchPanel());
 		container = new BeanItemContainer<MedicalAppointment>(MedicalAppointment.class, model.getMedicalAppointments());
 		container.addNestedContainerBean("medicalOffice");
@@ -176,6 +176,10 @@ public class FindMedicalAppointmentView extends VerticalLayout implements View {
 
 	public void setController(FindMedicalAppointmentController aController) {
 		controller = aController;
+	}
+
+	public String getUserName() {
+		return getSession().getAttribute("user").toString();
 	}
 
 	public void setItemsBeanItemContainer(List<MedicalAppointment> aMedicalAppointmentList) {
