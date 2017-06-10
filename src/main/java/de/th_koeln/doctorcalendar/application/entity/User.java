@@ -57,6 +57,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<MedicalAppointment> medicalAppointments = new ArrayList<>();
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<MedicalOfficeUserDistance> distances = new ArrayList<>();
+
 	public User() {
 		super();
 	}
@@ -160,6 +163,14 @@ public class User implements Serializable {
 
 	public void setMedicalAppointments(List<MedicalAppointment> aMedicalAppointments) {
 		medicalAppointments = aMedicalAppointments;
+	}
+
+	public List<MedicalOfficeUserDistance> getDistances() {
+		return distances;
+	}
+
+	public void setDistances(List<MedicalOfficeUserDistance> aDistances) {
+		distances = aDistances;
 	}
 
 	@Override

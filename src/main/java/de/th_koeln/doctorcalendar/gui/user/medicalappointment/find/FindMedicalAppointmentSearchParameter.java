@@ -14,6 +14,7 @@ public class FindMedicalAppointmentSearchParameter {
 	private Time medicalAppointmentTimeTo;
 	private Speciality speciality;
 	private Integer maximumDistanceInKm;
+	private String userName;
 
 	public String getMedicalOfficeName() {
 		return medicalOfficeName;
@@ -69,6 +70,14 @@ public class FindMedicalAppointmentSearchParameter {
 
 	public void setMaximumDistanceInKm(Integer aMaximumDistanceInKm) {
 		maximumDistanceInKm = aMaximumDistanceInKm;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String aUserName) {
+		userName = aUserName;
 	}
 
 }

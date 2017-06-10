@@ -139,8 +139,7 @@ public class FindMedicalAppointmentView extends AbstractView {
 		grid.addColumn("formattedTime").setHeaderCaption("Uhrzeit");
 		grid.addColumn("medicalOffice.name").setHeaderCaption("Arztpraxis");
 		grid.addColumn("medicalOffice.speciality").setHeaderCaption("Fachrichtung");
-		// TODO rt57, 26.05.2017: entfernungsberechnung / speicherung fehlt noch vollständig zwischen arzt + patient
-		//		grid.addColumn("distance").setHeaderCaption("Entfernung");
+		grid.addColumn("distance").setHeaderCaption("Entfernung");
 		grid.setSelectionMode(SelectionMode.SINGLE);
 		grid.addSelectionListener(controller.getGridSelectionListener());
 
@@ -185,6 +184,7 @@ public class FindMedicalAppointmentView extends AbstractView {
 
 	public void setSearchParameterToModel() {
 		FindMedicalAppointmentSearchParameter searchParameter = getModel().getSearchParameter();
+		searchParameter.setUserName(getUserName());
 		searchParameter.setMedicalOfficeName(medicalOfficeNameField.getValue());
 		searchParameter.setMedicalAppointmentDateFrom(dateFrom.getValue());
 		searchParameter.setMedicalAppointmentDateTo(dateTo.getValue());

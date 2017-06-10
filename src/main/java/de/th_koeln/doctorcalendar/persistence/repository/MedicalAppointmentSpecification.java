@@ -37,7 +37,6 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 		addDateFromTo(aRoot, aConditions, predicates);
 		addTimeFromTo(aRoot, aConditions, predicates);
 		addSpeciality(aConditions, predicates, medicalOfficeJoin);
-		addMaximumDistance();
 		addState(aRoot, aConditions, predicates);
 		addPatientName(aRoot, aConditions, predicates);
 
@@ -81,12 +80,6 @@ public class MedicalAppointmentSpecification implements Specification<MedicalApp
 	private void addSpeciality(CriteriaBuilder aConditions, List<Predicate> predicates, Join<MedicalAppointment, MedicalOffice> join) {
 		if (searchParameter.getSpeciality() != null) {
 			predicates.add(aConditions.equal(join.get(MedicalOffice_.speciality), searchParameter.getSpeciality()));
-		}
-	}
-
-	private void addMaximumDistance() {
-		if (searchParameter.getMaximumDistanceInKm() != null && searchParameter.getMaximumDistanceInKm() > 0) {
-			// TODO rt57, 17.05.2017: GoogleAufruf oder Tabelle
 		}
 	}
 

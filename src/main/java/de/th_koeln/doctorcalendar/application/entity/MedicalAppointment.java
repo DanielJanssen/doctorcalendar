@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
@@ -61,6 +62,9 @@ public class MedicalAppointment implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.DETACH)
 	private MedicalOffice medicalOffice = new MedicalOffice();
+
+	@Transient
+	private Integer distance;
 
 	public MedicalAppointment() {
 		super();
@@ -158,6 +162,14 @@ public class MedicalAppointment implements Serializable {
 
 	public void setMedicalOffice(MedicalOffice aMedicalOffice) {
 		medicalOffice = aMedicalOffice;
+	}
+
+	public Integer getDistance() {
+		return distance;
+	}
+
+	public void setDistance(Integer aDistance) {
+		distance = aDistance;
 	}
 
 	@Override

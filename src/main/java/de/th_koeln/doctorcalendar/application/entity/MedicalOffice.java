@@ -70,6 +70,9 @@ public class MedicalOffice implements Serializable {
 	@OneToMany(mappedBy = "medicalOffice")
 	private List<MedicalAppointment> medicalAppointments = new ArrayList<>();
 
+	@OneToMany(mappedBy = "medicalOffice")
+	private List<MedicalOfficeUserDistance> distances = new ArrayList<>();
+
 	public MedicalOffice() {
 		super();
 	}
@@ -177,6 +180,14 @@ public class MedicalOffice implements Serializable {
 
 	public void setMedicalAppointments(List<MedicalAppointment> aMedicalAppointments) {
 		medicalAppointments = aMedicalAppointments;
+	}
+
+	public List<MedicalOfficeUserDistance> getDistances() {
+		return distances;
+	}
+
+	public void setDistances(List<MedicalOfficeUserDistance> aDistances) {
+		distances = aDistances;
 	}
 
 	@Override

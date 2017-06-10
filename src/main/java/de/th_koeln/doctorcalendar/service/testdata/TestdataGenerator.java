@@ -13,12 +13,14 @@ import de.th_koeln.doctorcalendar.application.entity.Address;
 import de.th_koeln.doctorcalendar.application.entity.Caregiving;
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
 import de.th_koeln.doctorcalendar.application.entity.MedicalOffice;
+import de.th_koeln.doctorcalendar.application.entity.MedicalOfficeUserDistance;
 import de.th_koeln.doctorcalendar.application.entity.PhoneNumber;
 import de.th_koeln.doctorcalendar.application.entity.User;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.application.entity.enums.Speciality;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalAppointmentRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.MedicalOfficeRepository;
+import de.th_koeln.doctorcalendar.persistence.repository.MedicalOfficeUserDistanceRepository;
 import de.th_koeln.doctorcalendar.persistence.repository.UserRepository;
 
 @SpringComponent
@@ -33,6 +35,9 @@ public class TestdataGenerator {
 	@Autowired
 	MedicalAppointmentRepository medicalAppointmentRepository;
 
+	@Autowired
+	MedicalOfficeUserDistanceRepository medicalOfficeUserDistanceRepository;
+
 	MedicalOffice firstMedicalOffice;
 	MedicalOffice secondMedicalOffice;
 	MedicalOffice thirdMedicalOffice;
@@ -42,8 +47,11 @@ public class TestdataGenerator {
 		secondMedicalOffice = medicalOfficeRepository.save(getSecondMedicalOffice());
 		thirdMedicalOffice = medicalOfficeRepository.save(getThirdMedicalOffice());
 
-		userRepository.save(getFirstUser());
+		User peterMueller = getFirstUser();
+		userRepository.save(peterMueller);
 		userRepository.save(getSecondUser());
+
+		medicalOfficeUserDistanceRepository.save(getDistancesForFirstUser(peterMueller));
 
 		medicalAppointmentRepository.save(getFreeMedicalAppointments());
 		//freie Termine
@@ -91,6 +99,14 @@ public class TestdataGenerator {
 		user.getMedicalAppointments().add(new MedicalAppointment(getDate(-20), getTimeAt(15, 0), getTimeAt(15, 30), "EKG", null, user, firstMedicalOffice,
 				MedicalAppointmentState.ACCEPTED, firstMedicalOffice.getCaregivings().get(1)));
 		return user;
+	}
+
+	private List<MedicalOfficeUserDistance> getDistancesForFirstUser(User aUser) {
+		List<MedicalOfficeUserDistance> medicalOfficeUserDistances = new ArrayList<>();
+		medicalOfficeUserDistances.add(new MedicalOfficeUserDistance(firstMedicalOffice, aUser, 10));
+		medicalOfficeUserDistances.add(new MedicalOfficeUserDistance(secondMedicalOffice, aUser, 20));
+		medicalOfficeUserDistances.add(new MedicalOfficeUserDistance(thirdMedicalOffice, aUser, 30));
+		return medicalOfficeUserDistances;
 	}
 
 	private List<MedicalAppointment> getFreeMedicalAppointments() {

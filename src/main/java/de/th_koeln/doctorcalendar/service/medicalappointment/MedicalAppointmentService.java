@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.spring.annotation.SpringComponent;
 
 import de.th_koeln.doctorcalendar.application.entity.MedicalAppointment;
+import de.th_koeln.doctorcalendar.application.entity.MedicalOfficeUserDistance;
 import de.th_koeln.doctorcalendar.application.entity.User;
 import de.th_koeln.doctorcalendar.application.entity.enums.MedicalAppointmentState;
 import de.th_koeln.doctorcalendar.gui.doctor.find.FindDoctorSearchParameter;
@@ -56,6 +57,21 @@ public class MedicalAppointmentService {
 	public List<MedicalAppointment> findMedicalAppointment(FindMedicalAppointmentSearchParameter aSearchParameter) {
 		MedicalAppointmentSpecification specification = new MedicalAppointmentSpecification(new MedicalAppointmentSpecificationParameter(aSearchParameter));
 		List<MedicalAppointment> medicalAppointments = repository.findAll(specification);
+		List<MedicalAppointment> toDeleteMedicalAppointments = new ArrayList<>();
+		User aUser = userRepository.findByLoginName(aSearchParameter.getUserName());
+		for (MedicalAppointment tempMedicalAppointment : medicalAppointments) {
+			for (MedicalOfficeUserDistance tempDistance : aUser.getDistances()) {
+				if (tempMedicalAppointment.getMedicalOffice().equals(tempDistance.getMedicalOffice())) {
+					tempMedicalAppointment.setDistance(tempDistance.getDistance());
+					if (aSearchParameter.getMaximumDistanceInKm() != null) {
+						if (aSearchParameter.getMaximumDistanceInKm() < tempDistance.getDistance()) {
+							toDeleteMedicalAppointments.add(tempMedicalAppointment);
+						}
+					}
+				}
+			}
+		}
+		medicalAppointments.removeAll(toDeleteMedicalAppointments);
 		return medicalAppointments;
 	}
 
